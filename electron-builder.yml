@@ -1,0 +1,52 @@
+appId: io.github.LeandroDukievicz.enois-desktop
+productName: Énóis Desktop
+asar: true
+npmRebuild: false
+electronFuses:
+  runAsNode: false
+  enableNodeOptionsEnvironmentVariable: false
+  enableNodeCliInspectArguments: false
+directories:
+  output: dist
+  buildResources: assets
+files:
+  - out/**/*
+  - assets/icons/**/*
+  - package.json
+linux:
+  syncDesktopName: true
+  executableName: enois-desktop
+  category: Network
+  icon: assets/icons/enois-desktop.png
+  target:
+    - target: snap
+      arch: [x64]
+  desktop:
+    entry:
+      Name: Énóis Desktop
+      Comment: Cliente independente da plataforma Énóis
+      StartupWMClass: enois-desktop
+snapcraft:
+  base: core22
+  core22:
+    allowNativeWayland: true
+    title: Énóis Desktop
+    summary: Cliente desktop independente do Énóis para Linux
+    description: |
+      Acesse a plataforma Énóis preservando sua interface original, com navegação
+      desktop, sessão persistente e recuperação de conexão.
+      Cliente independente, sem afiliação oficial confirmada.
+    confinement: strict
+    grade: devel
+    plugs:
+      - network
+      - desktop
+      - desktop-legacy
+      - x11
+      - wayland
+      - opengl
+      - audio-playback
+      - home
+      - browser-support:
+          interface: browser-support
+          allow-sandbox: true

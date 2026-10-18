@@ -1,0 +1,39 @@
+{
+  "capturedAt": "2026-10-18T22:40:35.400Z",
+  "platform": "linux",
+  "scenario": "Original login page visible; no account; development Electron under X11/Xvfb; 1500ms CPU sampling interval",
+  "launchToWindowMs": 501.874612,
+  "launchToPlatformReadyMs": 8540.18307,
+  "measurements": [
+    {
+      "type": "Browser",
+      "cpuPercent": 0,
+      "workingSetKiB": 213284,
+      "peakWorkingSetKiB": 218056
+    },
+    {
+      "type": "GPU",
+      "cpuPercent": 0,
+      "workingSetKiB": 171624,
+      "peakWorkingSetKiB": 189968
+    },
+    {
+      "type": "Utility",
+      "cpuPercent": 0,
+      "workingSetKiB": 102512,
+      "peakWorkingSetKiB": 102512
+    },
+    {
+      "type": "Tab",
+      "cpuPercent": 0,
+      "workingSetKiB": 133404,
+      "peakWorkingSetKiB": 136636
+    },
+    {
+      "type": "Tab",
+      "cpuPercent": 0,
+      "workingSetKiB": 172056,
+      "peakWorkingSetKiB": 179524
+    }
+  ]
+}

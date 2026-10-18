@@ -1,0 +1,61 @@
+{
+  "name": "enois-desktop",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Cliente desktop independente do Énóis para Linux, preservando a experiência da plataforma web.",
+  "main": "out/main/index.js",
+  "desktopName": "enois-desktop.desktop",
+  "author": "Leandro Dukievicz",
+  "license": "MIT",
+  "homepage": "https://github.com/LeandroDukievicz/enois-desktop",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LeandroDukievicz/enois-desktop.git"
+  },
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "packageManager": "pnpm@11.0.9",
+  "scripts": {
+    "dev": "electron-vite dev",
+    "build": "electron-vite build",
+    "start": "electron .",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run",
+    "test:e2e": "pnpm build && playwright test",
+    "preview:capture": "pnpm build && node scripts/capture-preview.mjs",
+    "check": "pnpm typecheck && pnpm lint && pnpm format:check && pnpm test",
+    "package:dir": "pnpm build && electron-builder --linux --dir --publish never",
+    "package:snap": "pnpm build && electron-builder --linux snap --publish never"
+  },
+  "dependencies": {
+    "lucide-react": "1.59.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@playwright/test": "1.64.1",
+    "@tailwindcss/vite": "4.3.3",
+    "@types/node": "^24.19.2",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react-swc": "4.3.3",
+    "electron": "44.9.0",
+    "electron-builder": "26.15.3",
+    "electron-vite": "6.0.0",
+    "eslint": "10.13.0",
+    "eslint-config-prettier": "10.1.8",
+    "eslint-plugin-react-hooks": "7.1.1",
+    "prettier": "3.9.10",
+    "tailwindcss": "4.3.3",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.71.2",
+    "vite": "8.3.4",
+    "vitest": "5.0.5"
+  }
+}

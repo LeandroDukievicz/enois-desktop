@@ -1,0 +1,141 @@
+# Documentação de criação do Énóis Desktop
+
+Este documento registra como o projeto está sendo criado. Os checkpoints executáveis
+ficam em [milestone.md](milestone.md). Decisões e resultados são atualizados conforme
+as validações; configuração existente não é tratada como funcionalidade comprovada.
+
+## Pedido e limites
+
+Construir um cliente Linux com Electron, preservar UX/UI e estética do Énóis,
+publicar o código em `enois-desktop`, produzir uma prévia e reservar o nome na Snap Store.
+O site original é a fonte de verdade. Não há acesso ao backend nem afiliação oficial
+confirmada. O desktop não recria entidades, feed ou APIs, não faz scraping, não
+intercepta credenciais e não automatiza publicações.
+
+## Discovery realizado em 18/10/2026
+
+- Diretório novo: `/home/leandro-dukievicz/Projetos/enois-desktop`.
+- Nenhum código preexistente foi sobrescrito.
+- API oficial documentada em https://enois.ia.br/developers.
+- Comunidades e um post público responderam HTTP 200 em consultas somente leitura.
+- Feed pessoal respondeu HTTP 401 sem autenticação, conforme documentado.
+- A API rejeitou a origem `app://enois`; a implementação inicial evita duplicar o
+  frontend e usa a navegação do site em sua própria origem HTTPS.
+- OAuth de terceiros está em evolução na documentação da plataforma. Login real,
+  2FA, renovação e funcionalidades privadas exigem conta de teste autorizada.
+- A documentação prevê clientes e proíbe publicação automática por bots/integrações.
+- Não foi encontrada licença de redistribuição do frontend original nas páginas
+  consultadas. O cliente carrega o serviço remoto; seu código local é independente.
+
+## Escolhas e execução
+
+1. Comparar BrowserWindow remota com WebContentsView e escolher o segundo: o shell
+   local continua disponível quando o serviço falha, sem injetar controles no site.
+2. Separar main, preload local, renderer React e contratos Zod. Não há preload no site.
+3. Fixar versões, verificar peer dependencies e versionar o lockfile. TypeScript
+   7 foi identificado como incompatível com typescript-eslint; foi fixado TypeScript 5.9.3.
+4. Criar políticas puras de navegação/permissões e testá-las sem uma sessão real.
+5. Persistir a sessão em `persist:enois`, administrada pelo Chromium/Electron. Não
+   compartilhar automaticamente dados com navegadores externos ou copiar tokens.
+6. Criar navegação desktop, recuperação manual, preferências implementadas e logs
+   locais com campos limitados. Nenhuma telemetria externa.
+7. Validar com servidor de testes local e Playwright; depois capturar o serviço real.
+8. Gerar executável e Snap, inspecionar confinamento e registrar evidências.
+9. Publicar o repositório solicitado. Não enviar pacote para a loja automaticamente.
+
+## Reserva do nome
+
+`snapcraft register --yes enois-desktop` retornou `Registered 'enois-desktop'`.
+A listagem `snapcraft names` confirmou o nome público na conta `ldukie`, com data
+`2026-10-18T22:20:43Z`. Isso reserva o identificador; não significa que exista uma
+versão publicada, revisada ou aprovada pela loja.
+
+## Material fornecido
+
+O usuário forneceu `Downloads/download.svg`, um diagrama arquitetural, para uso no
+README. Ele será versionado como recurso de documentação; não será tratado como
+logotipo oficial da plataforma nem como autorização geral de uso da marca.
+
+## Fundação implementada
+
+- Electron 44.9.0, electron-builder 26.15.3, electron-vite 6.0.0 e Vite 8.3.4.
+- React/React DOM 19.3.1, TypeScript 5.9.3, Tailwind 4.3.3 e Zod 4.6.7.
+- Node de desenvolvimento 24.15.0, pnpm 11.0.9, Vitest 5.0.5 e Playwright 1.64.1.
+- ESLint 10.13.0, typescript-eslint 8.71.2 e Prettier 3.9.10.
+- Versões exatas e dependências restantes em package.json/pnpm-lock.yaml;
+  `pnpm peers check` não apresentou incompatibilidades após o ajuste do TypeScript.
+
+O main administra janela, view, navegação, permissões, downloads, configuração,
+logs e lifecycle. O preload local expõe quatro operações específicas, sem objetos
+Electron. O renderer React oferece barra de navegação, carregamento, erro e ajustes
+locais. O remoto mantém frontend, tema, UX/UI e lógica do serviço sem injeção.
+
+Não foi criado proxy de API: o site consome sua própria API normalmente. Não há
+coleta de credenciais, duplicação de feed, banco local ou estado global adicional.
+
+## Resultados de validação
+
+- Typecheck, ESLint e Prettier passaram.
+- 35 testes Vitest passaram: URLs, origem/frame IPC, permissões, contratos, dados
+  inválidos, persistência/gravação concorrente e rotação de logs.
+- 6 E2E com Electron real passaram: início/isolamento/navegação/encerramento,
+  persistência após reabrir, falha e reconexão, link externo cancelado, limpeza
+  de sessão confirmada e recuperação de renderer interrompido.
+- O encerramento verifica saída do processo principal e desaparecimento dos PIDs
+  dos renderers. Não são usadas credenciais reais no CI ou testes locais.
+- O site real carregou no Electron e redirecionou o feed sem sessão para sua tela
+  original de entrada. Capturas nativas em docs/preview/desktop.png e settings.png;
+  captura da view isolada em platform.png.
+- O SVG fornecido está em docs/assets/architecture.svg e aparece no README.
+- GitHub público criado: https://github.com/LeandroDukievicz/enois-desktop.
+  Relato privado de vulnerabilidades foi habilitado.
+
+## Auditoria de dependências
+
+`pnpm audit --prod` retornou zero vulnerabilidades conhecidas. A auditoria completa
+encontrou uma vulnerabilidade moderada de negação de serviço em `sprintf-js@1.1.3`,
+transitiva de electron-builder → @electron/get → global-agent → roarr. O advisory
+indica correção a partir de 1.1.4, porém o registry consultado ainda publica 1.1.3
+como última versão. Uma tentativa de resolver 1.1.4 retornou NO_MATCHING_VERSION;
+o override não validado foi removido. Não se declara que essa dependência foi corrigida.
+Ela pertence à ferramenta de desenvolvimento/build, não ao runtime distribuído.
+
+## Empacotamento e incidente core24
+
+1. core24 foi escolhido inicialmente pela base mais moderna e extensão GNOME.
+2. O schema do electron-builder instalado classifica esse caminho como beta.
+3. O build real criou um contêiner LXD Ubuntu 24.04, mas falhou com
+   `TimeoutExpired` ao executar `snap unset system proxy.http` dentro dele.
+4. O snapd do contêiner também registrou timeout ao conectar à API da loja. Não foi
+   alterada a rede/firewall global do host nem usado build destrutivo de outra base.
+5. O contêiner de teste foi encerrado e a configuração passou para core22, com
+   template verificado pelo builder e sem depender do snapd aninhado.
+6. O build core22 terminou e produziu dist/enois-desktop_0.1.0_amd64.snap (~107 MiB)
+   e dist/linux-unpacked/enois-desktop.
+7. O manifesto real foi inspecionado: confinement strict, base core22,
+   browser-support com allow-sandbox e comando sem desativação de sandbox.
+8. O pacote aplica fuses para impedir RunAsNode, NODE_OPTIONS e inspector Node por
+   linha de comando. Não há menu de DevTools em produção.
+9. Instalação e execução locais estão sendo validadas; resultado registrado após conclusão.
+
+## Baseline de desempenho
+
+Uma amostra local X11/Xvfb registrou aproximadamente 502 ms entre iniciar o processo
+e obter a janela e 8,54 s até o serviço remoto pronto. O segundo valor inclui rede
+e carregamento do site e não mede apenas o shell. A amostra, memória por processo,
+intervalo de CPU e contexto estão em docs/preview/measurements.json.
+
+É uma observação inicial em ambiente de desenvolvimento, não uma meta, benchmark
+repetido ou garantia de consumo em máquinas dos usuários. Wayland, HiDPI, múltiplos
+monitores e retomada de suspensão ainda precisam de medições próprias.
+
+## Pendências reais
+
+Login real, 2FA, expiração/renovação, OAuth, Web Push e todos os módulos privados
+exigem validação com conta autorizada. Recursos públicos/documentados e limites
+estão inventariados em docs/platform-compatibility.md. Não se declara paridade
+funcional completa apenas porque o site original está carregado.
+
+A revisão da Snap Store, confirmação de direitos sobre logotipo oficial, página
+da loja e promoção de canais permanecem etapas futuras. Reservar o nome não
+significa publicar uma versão. O workflow gera artefatos e não faz upload automático.

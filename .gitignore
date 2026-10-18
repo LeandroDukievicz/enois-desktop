@@ -1,0 +1,13 @@
+node_modules/
+out/
+dist/
+coverage/
+test-results/
+playwright-report/
+.env*
+!.env.example
+*.log
+*.snap
+*.AppImage
+.DS_Store
+.pnpm-store/
