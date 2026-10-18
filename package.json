@@ -29,7 +29,7 @@
     "preview:capture": "pnpm build && node scripts/capture-preview.mjs",
     "check": "pnpm typecheck && pnpm lint && pnpm format:check && pnpm test",
     "package:dir": "pnpm build && electron-builder --linux --dir --publish never",
-    "package:snap": "pnpm build && electron-builder --linux snap --publish never"
+    "package:snap": "pnpm build && electron-builder --linux snap --publish never && node scripts/verify-snap.mjs"
   },
   "dependencies": {
     "lucide-react": "1.59.0",

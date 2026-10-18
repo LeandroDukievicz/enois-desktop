@@ -20,6 +20,11 @@ cd dist
 sha256sum --check SHA256SUMS
 ```
 
+O hook `build/after-pack.cjs` inclui três scripts desktop da versão instalada do
+electron-builder, ausentes no template legado baixado por 26.15.3. O script de
+empacotamento executa `scripts/verify-snap.mjs` para impedir artefato com launcher
+ausente ou sandbox desativado. Isso surgiu de uma falha real no primeiro teste instalado.
+
 ## Base e interfaces
 
 core22 usa o template de bibliotecas verificado pelo electron-builder. core24 foi

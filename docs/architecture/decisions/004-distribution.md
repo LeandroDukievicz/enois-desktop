@@ -28,6 +28,12 @@ network-bind, câmera, microfone e captura de tela não são solicitados antecip
 Uma migração futura para core24 deverá passar por build e teste instalado; não
 basta alterar a base no manifesto.
 
+**Compatibilidade do builder:** o primeiro Snap core22 foi gerado, mas o teste
+instalado revelou que o launcher referenciava três scripts ausentes no template.
+`build/after-pack.cjs` copia os scripts da versão fixada do próprio electron-builder.
+`scripts/verify-snap.mjs` verifica presença dos launchers, strict, sandbox e associação
+de janela, fazendo o build falhar em caso de regressão. Não há desativação de isolamento.
+
 **Atualizações:** snapd gerencia versões distribuídas na loja. Não há auto-updater
 paralelo. Reserva do nome é distinta de upload, revisão ou lançamento. Não publicar
 na Snap Store automaticamente; primeiro edge, depois beta/candidate/stable após QA.

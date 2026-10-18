@@ -2,6 +2,7 @@ appId: io.github.LeandroDukievicz.enois-desktop
 productName: Énóis Desktop
 asar: true
 npmRebuild: false
+afterPack: build/after-pack.cjs
 electronFuses:
   runAsNode: false
   enableNodeOptionsEnvironmentVariable: false

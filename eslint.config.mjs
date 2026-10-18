@@ -17,7 +17,7 @@ export default tseslint.config(
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
-    files: ['**/*.{js,mjs,ts,tsx}'],
+    files: ['**/*.{js,mjs,cjs,ts,tsx}'],
     languageOptions: {
       globals: {
         process: 'readonly',
@@ -40,6 +40,14 @@ export default tseslint.config(
     files: ['src/renderer/**/*.{ts,tsx}'],
     plugins: { 'react-hooks': reactHooks },
     rules: { 'react-hooks/rules-of-hooks': 'error', 'react-hooks/exhaustive-deps': 'error' },
+  },
+  {
+    files: ['build/*.cjs'],
+    languageOptions: {
+      sourceType: 'commonjs',
+      globals: { require: 'readonly', module: 'readonly' },
+    },
+    rules: { '@typescript-eslint/no-require-imports': 'off' },
   },
   prettier,
 )

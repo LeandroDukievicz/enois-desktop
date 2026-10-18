@@ -200,10 +200,11 @@ test('recupera o renderer remoto após uma falha', async () => {
   const shell = await launch()
   await expect(shell.getByRole('status')).toHaveText('Conectado')
   await application!.evaluate(({ webContents }) => {
-    webContents
+    const target = webContents
       .getAllWebContents()
       .find((contents) => contents.getURL().startsWith('http://127.0.0.1'))!
-      .forcefullyCrashRenderer()
+    // Kill only the test renderer. SIGKILL avoids OS core-dump collection delaying CI.
+    process.kill(target.getOSProcessId(), 'SIGKILL')
   })
   await expect(
     shell.getByText('A página foi interrompida. Recarregue para continuar de onde parou.'),
