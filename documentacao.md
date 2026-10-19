@@ -174,8 +174,8 @@ manual estão em [verificação de autenticação](docs/authentication-verificat
 Foi acrescentado `pnpm verify:auth`, que reproduziu essa inspeção no site real
 e gerou um relatório sem credenciais. A evidência pública revisada está em
 `docs/verification/authentication-public-2026-10-19.json`. A suíte E2E passou a
-9 cenários, acrescentando POST/redirect/cookie HttpOnly persistente/logout,
-navegação OAuth externa e redirect externo bloqueado. Os 9 passaram, assim como
+10 cenários, acrescentando POST/redirect/cookie HttpOnly persistente/logout,
+navegação OAuth externa, redirect externo bloqueado e CacheStorage. Os 10 passaram, assim como
 typecheck, lint, formatação e os 35 testes Vitest. Nenhuma política de segurança
 de produção foi relaxada e nenhuma autenticação paralela foi criada.
 
@@ -183,6 +183,13 @@ O Snap foi aberto na sessão gráfica para entrada manual do usuário. O reposit
 foi conferido com `git fetch` e estava sincronizado com `origin/main`, sem commits
 locais pendentes. A partir desta etapa, cada atualização validada é enviada em um
 commit próprio ao remoto.
+
+A inspeção extra descobriu uma interrupção real do renderer associada ao user
+agent com o nome acentuado do aplicativo. Foi corrigido somente o produto HTTP
+para `enois-desktop`, mantendo nome visual, Chromium/Electron reais, sandbox e
+políticas de segurança. O percurso original `/entrar` → `/developers` → `/feed`
+voltou a funcionar com o shell pronto. O verificador agora cobre esse percurso.
+Diagnóstico e evidências ficam em `docs/authentication-verification.md`.
 
 Login real, 2FA, expiração/renovação, OAuth, Web Push e todos os módulos privados
 exigem validação com conta autorizada. Recursos públicos/documentados e limites

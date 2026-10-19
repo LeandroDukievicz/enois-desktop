@@ -142,6 +142,11 @@ test('inicia, isola o conteúdo remoto, navega e encerra sem renderers órfãos'
   expect(
     await page.evaluate(() => typeof (window as unknown as { process?: unknown }).process),
   ).toBe('undefined')
+  const userAgent = await page.evaluate(() => navigator.userAgent)
+  expect(userAgent).toMatch(/^[\x20-\x7e]+$/)
+  expect(userAgent).toMatch(/enois-desktop\/\d+\.\d+\.\d+/)
+  expect(userAgent).toMatch(/Electron\/\d+/)
+  expect(userAgent).toMatch(/Chrome\/\d+/)
   await page.getByRole('link', { name: 'Navegação interna' }).click()
   await expect.poll(() => page.url()).toBe(`${origin}/outra`)
   await shell.getByRole('button', { name: 'Voltar', exact: true }).click()
@@ -315,4 +320,25 @@ test('redirect externo não ganha confiança de navegação interna', async () =
     ),
   ).toBeVisible()
   expect(new URL(page.url()).origin).toBe(origin)
+})
+
+test('CacheStorage preserva o identificador HTTP do cliente sem interromper o renderer', async () => {
+  const shell = await launch()
+  await expect(shell.getByRole('status')).toHaveText('Conectado')
+  const page = await remotePage()
+  const result = await page.evaluate(async () => {
+    const cache = await caches.open('fixture-user-agent')
+    await cache.put(
+      '/fixture-cached-response',
+      new Response('fixture', {
+        headers: { 'X-Fixture-User-Agent': navigator.userAgent },
+      }),
+    )
+    const response = await cache.match('/fixture-cached-response')
+    return { original: navigator.userAgent, cached: response?.headers.get('X-Fixture-User-Agent') }
+  })
+  expect(result.cached).toBe(result.original)
+  await shell.getByRole('button', { name: 'Recarregar', exact: true }).click()
+  await expect(shell.getByRole('status')).toHaveText('Conectado')
+  await expect(page.getByRole('heading', { name: 'Comunidade de teste' })).toBeVisible()
 })

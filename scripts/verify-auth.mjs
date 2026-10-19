@@ -9,6 +9,7 @@ const report = {
   scope: 'Public original login UI in real Electron, without credentials',
   authenticatedLogin: 'requires-manual-login',
   oauthReturnToDesktop: 'not-verified',
+  publicNavigation: [],
   providers: [],
 }
 
@@ -42,6 +43,25 @@ for (const provider of [
     const url = new URL(remote.url())
     expect(url.origin).toBe('https://enois.ia.br')
     expect(url.pathname).toBe('/entrar')
+    if (provider.name === 'Google') {
+      // Exercise a round trip after the original page has initialized its caches.
+      for (const route of ['/developers', '/feed']) {
+        await remote.goto(`https://enois.ia.br${route}`, { waitUntil: 'domcontentloaded' })
+        await delay(1500)
+        await expect
+          .poll(() => local.evaluate(() => window.desktop.getState()))
+          .toMatchObject({
+            phase: 'ready',
+            error: null,
+          })
+        report.publicNavigation.push({
+          requestedPath: route,
+          finalPath: new URL(remote.url()).pathname,
+          shellPhase: 'ready',
+        })
+      }
+      await remote.getByRole('button', { name: provider.button, exact: true }).waitFor()
+    }
     // Read control metadata only. Never inspect field values, cookies or storage.
     const controls = await remote.locator('input').evaluateAll((inputs) =>
       inputs.map((input) => ({

@@ -12,6 +12,9 @@ const remoteUrl = 'https://enois.ia.br/feed'
 const testMode = !app.isPackaged && process.env.ENOIS_E2E === '1'
 
 app.setName('Énóis Desktop')
+// Keep the display name accented, but HTTP/cache headers require an ASCII product token.
+// Retain the real Chromium and Electron identifiers; this is not a browser impersonation.
+app.userAgentFallback = app.userAgentFallback.replace('ÉnóisDesktop/', 'enois-desktop/')
 app.enableSandbox()
 protocol.registerSchemesAsPrivileged([
   { scheme: 'enois', privileges: { standard: true, secure: true, supportFetchAPI: true } },

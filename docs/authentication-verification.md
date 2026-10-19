@@ -57,18 +57,44 @@ desta execução está em [authentication-public-2026-10-19.json](verification/a
 Este comando depende da rede e da interface atual do serviço, por isso fica fora
 do CI controlado.
 
-Os 9 E2E passaram. Três cenários novos verificam no Electron real:
+Os 10 E2E passaram. Os cenários acrescentados verificam no Electron real:
 
 - POST de formulário, redirects internos, cookie HttpOnly persistente após
   reiniciar e exclusão do cookie pelo logout do servidor de teste.
 - Navegação iniciada pela página para um provedor externo, encaminhamento ao
   navegador e manutenção do estado conectado do shell.
 - Bloqueio de redirect externo sem conceder confiança ao domínio de destino.
+- CacheStorage com o identificador HTTP real do cliente, reabertura da resposta
+  em cache e recarregamento sem interrupção do renderer.
 
 O servidor desses testes é apenas uma fixture local, sem contas ou senhas.
 O resultado comprova transporte/persistência no wrapper e aplicação da política;
 não comprova sucesso do login no serviço real. Typecheck, lint, formatação e
 os 35 testes unitários/integração também passaram.
+
+## Falha encontrada e corrigida
+
+A navegação adicional encontrou um problema real antes de entrar em qualquer conta:
+o renderer era encerrado com `killed`, código 3, após uma mensagem inválida de
+`blink.mojom.CacheStorage`. O user agent padrão incluía o nome acentuado
+`ÉnóisDesktop/0.1.0`. Janelas de controle dentro do aplicativo também falharam;
+uma aplicação mínima com identificação ASCII navegou normalmente. Testar Electron
+43.8.0 não eliminou a falha, e a dependência do projeto permaneceu em 44.9.0.
+
+O main passou a definir cedo `app.userAgentFallback`, substituindo exclusivamente
+o produto `ÉnóisDesktop/` por `enois-desktop/`. O nome visual continua Énóis Desktop;
+as identificações e versões reais de Electron e Chromium permanecem no header.
+Nenhuma permissão, regra de navegação, sandbox, cache ou service worker foi desativado.
+
+Depois da alteração, a inspeção real passou pelo percurso `/entrar` → `/developers`
+→ `/feed` → `/entrar`, com estado `ready` e sem erro. O verificador público agora
+inclui esse percurso, e o E2E exige user agent ASCII preservando as marcas reais
+do runtime. Um cenário adicional exerce CacheStorage e recarregamento.
+
+Existe um relato anterior de falha com caracteres não ASCII no user agent no
+[repositório oficial do Electron](https://github.com/electron/electron/issues/39469).
+Ele apoia a escolha de um produto HTTP ASCII; não comprova sozinho a causa desta
+falha específica. A evidência principal é a comparação local antes/depois.
 
 ## Validação manual necessária
 
@@ -82,6 +108,6 @@ diretamente no site, sem compartilhar senha ou códigos com o agente.
 
 Não marcar autenticação real como aprovada a partir dos testes de transporte e
 persistência feitos com fixtures. A sessão GNOME/Wayland nativa registrou um
-renderer interrompido (`killed`) na abertura inicial; seu comportamento também
-precisa ser confirmado no teste manual. O teste anterior X11/Xvfb renderizou a
-tela original de entrada.
+renderer interrompido (`killed`) antes da correção do identificador HTTP. O Snap
+atualizado precisa de confirmação manual nessa sessão. A verificação automatizada
+posterior à correção passou em X11/Xvfb com sandbox ativo.
