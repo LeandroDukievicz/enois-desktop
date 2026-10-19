@@ -191,6 +191,14 @@ políticas de segurança. O percurso original `/entrar` → `/developers` → `/
 voltou a funcionar com o shell pronto. O verificador agora cobre esse percurso.
 Diagnóstico e evidências ficam em `docs/authentication-verification.md`.
 
+O Snap corrigido foi gerado novamente, inspecionado, instalado como revisão local
+`x5` e iniciado na sessão GNOME/Wayland com `snap run enois-desktop`, sem flags de
+backend gráfico. Houve carregamento remoto pronto e nenhuma nova interrupção no
+período observado. O checksum foi validado; os dados anteriores foram preservados.
+O registro técnico está em `docs/verification/installed-snap-2026-10-19.json`.
+A janela corrigida foi deixada aberta para entrada manual. Login autenticado e
+retorno OAuth continuam pendentes da confirmação do usuário.
+
 Login real, 2FA, expiração/renovação, OAuth, Web Push e todos os módulos privados
 exigem validação com conta autorizada. Recursos públicos/documentados e limites
 estão inventariados em docs/platform-compatibility.md. Não se declara paridade

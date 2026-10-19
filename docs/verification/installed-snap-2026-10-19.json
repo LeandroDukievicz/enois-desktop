@@ -1,0 +1,14 @@
+{
+  "checkedAt": "2026-10-19T23:56:05.916Z",
+  "sourceCommit": "9a6b29d900da360bbf66d49489e939e882b31a6d",
+  "artifact": "5108d4ba4228f63ab5c385db71aa0dc7213a5395280f60441b7f890e5dc65f6f  enois-desktop_0.1.0_amd64.snap",
+  "platform": "Ubuntu 26.04.1, GNOME session with XDG_SESSION_TYPE=wayland",
+  "snapLocalRevision": "x5",
+  "launch": "snap run enois-desktop",
+  "forcedGraphicsFlags": false,
+  "observedSeconds": 106,
+  "remoteReadyEvents": 2,
+  "rendererCrashes": 0,
+  "authenticatedLogin": "requires-manual-login",
+  "scope": "Startup and remote loading only; no private page inspection or credentials accessed"
+}

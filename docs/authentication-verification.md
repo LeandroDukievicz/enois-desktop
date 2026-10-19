@@ -109,5 +109,14 @@ diretamente no site, sem compartilhar senha ou códigos com o agente.
 Não marcar autenticação real como aprovada a partir dos testes de transporte e
 persistência feitos com fixtures. A sessão GNOME/Wayland nativa registrou um
 renderer interrompido (`killed`) antes da correção do identificador HTTP. O Snap
-atualizado precisa de confirmação manual nessa sessão. A verificação automatizada
-posterior à correção passou em X11/Xvfb com sandbox ativo.
+corrigido foi gerado, inspecionado, instalado como revisão local `x5` e aberto com
+`snap run enois-desktop`, sem forçar backend gráfico. Os registros desta nova
+execução confirmaram carregamento remoto pronto e nenhuma interrupção durante a
+amostra. Isso valida inicialização nativa, sem substituir a entrada manual em conta.
+[Evidência do pacote instalado](verification/installed-snap-2026-10-19.json).
+
+A janela antiga, ainda no estado de renderer interrompido, foi encerrada após
+verificar PID, executável e último evento. A janela corrigida permanece aberta
+para o usuário concluir a entrada manual. Nenhum dado da sessão foi apagado.
+A verificação automatizada posterior à correção também passou em X11/Xvfb com
+sandbox ativo. O checksum do novo artefato foi conferido com `sha256sum --check`.
