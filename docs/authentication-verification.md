@@ -120,3 +120,14 @@ verificar PID, executável e último evento. A janela corrigida permanece aberta
 para o usuário concluir a entrada manual. Nenhum dado da sessão foi apagado.
 A verificação automatizada posterior à correção também passou em X11/Xvfb com
 sandbox ativo. O checksum do novo artefato foi conferido com `sha256sum --check`.
+
+## Ocorrência auxiliar posterior
+
+Uma inspeção adicional da documentação, fora do verificador principal, encontrou
+estado local `error` na abertura e não atingiu `ready` em 45 segundos. Essa tentativa
+falhou; o diagnóstico detalhado não foi preservado antes da limpeza do perfil
+temporário, portanto sua causa permanece indeterminada. Uma consulta HEAD posterior
+ao `/feed` respondeu HTTP 200, e uma nova abertura isolada terminou em `ready`,
+sem erro e sem interrupção nos registros. Não se atribui a ocorrência automaticamente
+ao problema de CacheStorage nem se apresenta a tentativa falha como aprovada.
+O serviço remoto continua sendo uma dependência externa dos testes públicos.
