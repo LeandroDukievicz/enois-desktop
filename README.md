@@ -47,6 +47,7 @@ pnpm test:e2e          # build e Playwright com Electron/servidor local
 pnpm build
 pnpm start             # executar build local
 pnpm preview:capture   # capturar a plataforma real, sem login
+pnpm verify:auth       # verificar UI original e roteamento OAuth, sem entrar em conta
 pnpm package:dir       # executável Linux em dist/linux-unpacked
 pnpm package:snap      # pacote .snap, sem upload
 ```
@@ -64,6 +65,7 @@ em `package.json` e `pnpm-lock.yaml`.
 - [Arquitetura e ADRs](docs/architecture/overview.md)
 - [Ameaças e segurança](docs/architecture/security.md)
 - [Desenvolvimento e testes](docs/development.md)
+- [Verificação de autenticação](docs/authentication-verification.md)
 - [Empacotamento](docs/packaging.md)
 - [Processo de release](docs/release-process.md)
 - [Contribuição](CONTRIBUTING.md)

@@ -43,6 +43,33 @@ user agent não é uma correção. Caso o serviço não ofereça um retorno auto
 ao desktop, será necessária cooperação da plataforma para esse fluxo.
 Fonte: [política OAuth do Google](https://developers.google.com/identity/protocols/oauth2/policies).
 
+## Reprodução e testes de transporte
+
+```bash
+xvfb-run -a -s '-screen 0 1440x1000x24' pnpm verify:auth
+```
+
+O comando acessa o site real, usa perfis temporários separados para Google e
+LinkedIn e falha se a interface, os destinos esperados ou o estado local não
+corresponderem ao observado. Não preenche nem envia credenciais. O relatório
+atual fica em `test-results/authentication-check.json`; a evidência revisada
+desta execução está em [authentication-public-2026-10-19.json](verification/authentication-public-2026-10-19.json).
+Este comando depende da rede e da interface atual do serviço, por isso fica fora
+do CI controlado.
+
+Os 9 E2E passaram. Três cenários novos verificam no Electron real:
+
+- POST de formulário, redirects internos, cookie HttpOnly persistente após
+  reiniciar e exclusão do cookie pelo logout do servidor de teste.
+- Navegação iniciada pela página para um provedor externo, encaminhamento ao
+  navegador e manutenção do estado conectado do shell.
+- Bloqueio de redirect externo sem conceder confiança ao domínio de destino.
+
+O servidor desses testes é apenas uma fixture local, sem contas ou senhas.
+O resultado comprova transporte/persistência no wrapper e aplicação da política;
+não comprova sucesso do login no serviço real. Typecheck, lint, formatação e
+os 35 testes unitários/integração também passaram.
+
 ## Validação manual necessária
 
 O Snap foi iniciado na sessão gráfica do usuário para que o login seja feito

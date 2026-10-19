@@ -27,6 +27,7 @@
     "test": "vitest run",
     "test:e2e": "pnpm build && playwright test",
     "preview:capture": "pnpm build && node scripts/capture-preview.mjs",
+    "verify:auth": "pnpm build && node scripts/verify-auth.mjs",
     "check": "pnpm typecheck && pnpm lint && pnpm format:check && pnpm test",
     "package:dir": "pnpm build && electron-builder --linux --dir --publish never",
     "package:snap": "pnpm build && electron-builder --linux snap --publish never && node scripts/verify-snap.mjs"

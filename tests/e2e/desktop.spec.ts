@@ -23,8 +23,51 @@ test.beforeAll(async () => {
       return
     }
     response.setHeader('Content-Type', 'text/html; charset=utf-8')
+    const path = new URL(request.url ?? '/', 'http://127.0.0.1').pathname
+    if (path === '/auth/sign-in' && request.method === 'POST') {
+      // Fixture only: exercise form transport and HttpOnly persistence without credentials.
+      request.resume()
+      response.setHeader(
+        'Set-Cookie',
+        'fixture-session=present; HttpOnly; SameSite=Lax; Max-Age=3600; Path=/',
+      )
+      response.writeHead(303, { Location: '/auth/private' })
+      response.end()
+      return
+    }
+    if (path === '/auth/logout') {
+      response.setHeader(
+        'Set-Cookie',
+        'fixture-session=; HttpOnly; SameSite=Lax; Max-Age=0; Path=/',
+      )
+      response.writeHead(303, { Location: '/auth/login' })
+      response.end()
+      return
+    }
+    if (path === '/auth/private') {
+      if (!request.headers.cookie?.includes('fixture-session=present')) {
+        response.writeHead(302, { Location: '/auth/login' })
+        response.end()
+      } else {
+        response.end(
+          '<!doctype html><h1>Sessão controlada ativa</h1><a href="/auth/logout">Sair da fixture</a>',
+        )
+      }
+      return
+    }
+    if (path === '/auth/login') {
+      response.end(
+        '<!doctype html><h1>Entrada controlada</h1><form method="POST" action="/auth/sign-in"><button>Entrar na fixture</button></form>',
+      )
+      return
+    }
+    if (path === '/oauth/redirect') {
+      response.writeHead(302, { Location: 'https://accounts.google.com/o/oauth2/v2/auth' })
+      response.end()
+      return
+    }
     response.end(
-      `<!doctype html><html lang="pt-BR"><head><title>Plataforma de teste</title></head><body><h1>Comunidade de teste</h1><a href="/outra">Navegação interna</a><a href="javascript:void(0)" id="unsafe">Link bloqueado</a><a href="https://example.org" id="external">Link externo</a><script>document.querySelector('#unsafe').onclick=()=>window.open('file:///etc/passwd');</script></body></html>`,
+      `<!doctype html><html lang="pt-BR"><head><title>Plataforma de teste</title></head><body><h1>Comunidade de teste</h1><a href="/outra">Navegação interna</a><a href="javascript:void(0)" id="unsafe">Link bloqueado</a><a href="https://example.org" id="external">Link externo</a><a href="/auth/login">Sessão controlada</a><button id="oauth">Provedor externo</button><a href="/oauth/redirect">Redirecionamento externo</a><script>document.querySelector('#unsafe').onclick=()=>window.open('file:///etc/passwd');document.querySelector('#oauth').onclick=()=>window.location.assign('https://accounts.google.com/o/oauth2/v2/auth');</script></body></html>`,
     )
   })
   await new Promise<void>((done) => server.listen(0, '127.0.0.1', done))
@@ -211,4 +254,65 @@ test('recupera o renderer remoto após uma falha', async () => {
   ).toBeVisible()
   await shell.getByRole('button', { name: 'Tentar novamente', exact: true }).click()
   await expect(shell.getByRole('status')).toHaveText('Conectado')
+})
+
+test('preserva POST, redirects e cookie HttpOnly persistente; logout é feito pelo site', async () => {
+  let shell = await launch()
+  await expect(shell.getByRole('status')).toHaveText('Conectado')
+  let page = await remotePage()
+  await page.getByRole('link', { name: 'Sessão controlada', exact: true }).click()
+  await page.getByRole('button', { name: 'Entrar na fixture', exact: true }).click()
+  await expect(page.getByRole('heading', { name: 'Sessão controlada ativa' })).toBeVisible()
+  // A real HttpOnly cookie is used by the server and unavailable to page JavaScript.
+  expect(await page.evaluate(() => document.cookie)).not.toContain('fixture-session')
+  await application!.close()
+  application = undefined
+  shell = await launch()
+  await expect(shell.getByRole('status')).toHaveText('Conectado')
+  page = await remotePage()
+  await page.goto(`${origin}/auth/private`)
+  await expect(page.getByRole('heading', { name: 'Sessão controlada ativa' })).toBeVisible()
+  await page.getByRole('link', { name: 'Sair da fixture', exact: true }).click()
+  await expect(page.getByRole('heading', { name: 'Entrada controlada' })).toBeVisible()
+  await page.goto(`${origin}/auth/private`)
+  await expect(page.getByRole('heading', { name: 'Entrada controlada' })).toBeVisible()
+})
+
+test('navegação do site para OAuth externo abre o navegador e mantém a sessão na view', async () => {
+  const shell = await launch()
+  await expect(shell.getByRole('status')).toHaveText('Conectado')
+  await application!.evaluate(({ dialog, shell }) => {
+    dialog.showMessageBox = async () => ({ response: 1, checkboxChecked: false })
+    shell.openExternal = async (url) => {
+      ;(globalThis as unknown as Record<string, string>).__enoisTestOpenedUrl = url
+    }
+  })
+  const page = await remotePage()
+  await page
+    .getByRole('button', { name: 'Provedor externo', exact: true })
+    .click({ noWaitAfter: true })
+  await expect
+    .poll(() =>
+      application!.evaluate(
+        () => (globalThis as unknown as Record<string, string>).__enoisTestOpenedUrl,
+      ),
+    )
+    .toBe('https://accounts.google.com/o/oauth2/v2/auth')
+  expect(page.url()).toBe(`${origin}/feed`)
+  await expect(shell.getByRole('status')).toHaveText('Conectado')
+})
+
+test('redirect externo não ganha confiança de navegação interna', async () => {
+  const shell = await launch()
+  await expect(shell.getByRole('status')).toHaveText('Conectado')
+  const page = await remotePage()
+  await page
+    .getByRole('link', { name: 'Redirecionamento externo', exact: true })
+    .click({ noWaitAfter: true })
+  await expect(
+    shell.getByText(
+      'A plataforma tentou abrir outro domínio. Este fluxo precisa ser validado para funcionar no aplicativo.',
+    ),
+  ).toBeVisible()
+  expect(new URL(page.url()).origin).toBe(origin)
 })

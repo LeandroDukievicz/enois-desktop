@@ -39,12 +39,28 @@ pnpm audit
 
 Os E2E usam servidor HTTP efêmero em 127.0.0.1 e perfil temporário próprio. Testam
 o Electron real sem automatizar login ou acessar contas da plataforma. A sessão
-persistida é uma string fictícia, sem valor de autenticação. Diálogos e abertura
+persistida usa localStorage fictício e cookie HttpOnly de uma fixture, sem valor
+de autenticação na plataforma. Os cenários também verificam formulário POST,
+redirect interno, reabertura e logout feito pelo servidor controlado. Diálogos e abertura
 de navegador podem ser substituídos apenas no processo de teste para evitar efeitos
 no sistema. Interação/navegação interna, rede, storage e lifecycle são reais.
 
 Playwright gera traces e relatório em caso de falha; esses arquivos não são
 versionados. O CI publica diagnósticos temporários, sem contas reais.
+
+## Verificar a tela original de login
+
+```bash
+xvfb-run -a -s '-screen 0 1440x1000x24' pnpm verify:auth
+```
+
+Inspeciona os controles públicos e aciona Google/LinkedIn em perfis vazios, com
+o próprio site e a política real de navegação. Substitui somente o diálogo e a
+abertura do navegador no processo auditado. Registra origens e caminhos públicos;
+não registra queries, credenciais, cookies, tokens ou dados de conta. Não faz
+parte do CI, pois depende da rede e da interface remota. O sucesso deste comando
+não representa login autenticado ou retorno OAuth ao desktop. Veja
+[o resultado e a validação manual](authentication-verification.md).
 
 ## Capturar prévia real
 

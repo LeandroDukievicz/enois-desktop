@@ -49,6 +49,7 @@ não há afiliação oficial confirmada. Cada checkbox exige evidência verific�
 ## M5 · Validação autenticada e lançamento
 
 - [x] Inspecionar os botões originais de login e registrar navegação/callbacks sem credenciais.
+- [x] Reproduzir inspeção pública e validar POST, redirects, cookie HttpOnly e logout com fixture.
 - [ ] Validar login, logout, expiração/renovação e 2FA com conta de teste autorizada.
 - [ ] Validar feed, posts, comentários, reações, comunidades e upload.
 - [ ] Validar mensagens, notificações, vagas, eventos e demais módulos disponíveis à conta.
@@ -65,7 +66,7 @@ todos os recursos em Electron. Nenhum backend, entidade ou endpoint privado ser�
 ## Evidências desta etapa
 
 - `pnpm check`: typecheck, ESLint, Prettier e 35 testes passaram.
-- Playwright/Electron: 6 cenários passaram em X11/Xvfb com sandbox ativo.
+- Playwright/Electron: 9 cenários passaram em X11/Xvfb com sandbox ativo.
 - `pnpm audit --prod`: nenhuma vulnerabilidade conhecida nas dependências de produção.
 - Auditoria completa: uma vulnerabilidade moderada em sprintf-js transitivo de
   desenvolvimento; a versão corrigida indicada pelo advisory ainda não está no registry.

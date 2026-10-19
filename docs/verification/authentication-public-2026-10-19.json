@@ -1,0 +1,56 @@
+{
+  "checkedAt": "2026-10-19T23:39:07.364Z",
+  "scope": "Public original login UI in real Electron, without credentials",
+  "authenticatedLogin": "requires-manual-login",
+  "oauthReturnToDesktop": "not-verified",
+  "providers": [
+    {
+      "provider": "Google",
+      "destinations": [
+        {
+          "origin": "https://accounts.google.com",
+          "path": "/o/oauth2/v2/auth",
+          "callbackOrigin": "https://enois.ia.br",
+          "callbackPath": "/api/auth/oauth/google/callback"
+        }
+      ],
+      "shellPhase": "ready",
+      "loginControls": [
+        {
+          "type": "email",
+          "required": true,
+          "autocomplete": "email"
+        },
+        {
+          "type": "password",
+          "required": true,
+          "autocomplete": "current-password"
+        }
+      ]
+    },
+    {
+      "provider": "LinkedIn",
+      "destinations": [
+        {
+          "origin": "https://www.linkedin.com",
+          "path": "/oauth/v2/authorization",
+          "callbackOrigin": "https://enois.ia.br",
+          "callbackPath": "/auth/callback"
+        }
+      ],
+      "shellPhase": "ready",
+      "loginControls": [
+        {
+          "type": "email",
+          "required": true,
+          "autocomplete": "email"
+        },
+        {
+          "type": "password",
+          "required": true,
+          "autocomplete": "current-password"
+        }
+      ]
+    }
+  ]
+}
