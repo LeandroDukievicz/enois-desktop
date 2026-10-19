@@ -28,11 +28,17 @@ network-bind, câmera, microfone e captura de tela não são solicitados antecip
 Uma migração futura para core24 deverá passar por build e teste instalado; não
 basta alterar a base no manifesto.
 
-**Compatibilidade do builder:** o primeiro Snap core22 foi gerado, mas o teste
-instalado revelou que o launcher referenciava três scripts ausentes no template.
-`build/after-pack.cjs` copia os scripts da versão fixada do próprio electron-builder.
-`scripts/verify-snap.mjs` verifica presença dos launchers, strict, sandbox e associação
-de janela, fazendo o build falhar em caso de regressão. Não há desativação de isolamento.
+**Compatibilidade do builder:** o teste instalado detectou launchers e bibliotecas
+ausentes. A inspeção mostrou que o builder deixava o `.tar` interno sem extrair
+após abrir o `.tar.7z`. O patch versionado em
+`patches/app-builder-lib@26.15.3.patch` extrai o arquivo verificado na área de staging
+do projeto e usa os launchers da versão instalada. O cache compartilhado não é alterado.
+Uma instalação limpa com lockfile imutável confirmou a aplicação do patch.
+`scripts/verify-snap.mjs` verifica launchers, bibliotecas NSS/NSPR, avisos de licença
+Electron/Chromium, strict, sandbox e associação de janela; o build falha se faltar
+um desses requisitos. O pacote foi instalado em Ubuntu 26.04.1 e renderizou a tela
+original de entrada sob X11/Xvfb, sem desativar sandbox. Wayland e QA autenticado
+continuam pendentes.
 
 **Atualizações:** snapd gerencia versões distribuídas na loja. Não há auto-updater
 paralelo. Reserva do nome é distinta de upload, revisão ou lançamento. Não publicar

@@ -8,11 +8,14 @@ tema e regras de negócio continuam sendo entregues pela plataforma original.
 O código local acrescenta navegação, ciclo de vida, sessão persistente e recuperação
 de erros. Não há afiliação oficial confirmada.
 
-**Status:** fundação `0.1.0` em validação. O nome `enois-desktop` já está reservado na
-Snap Store; nenhum pacote foi publicado. Veja os checkpoints em
+**Status:** fundação `0.1.0` executável; Snap strict gerado, instalado e testado em X11.
+Login autenticado e compatibilidade completa ainda estão em validação.
+O nome `enois-desktop` já está reservado na Snap Store; nenhum pacote foi publicado. Veja os checkpoints em
 [milestone.md](milestone.md) e o registro de criação em [documentacao.md](documentacao.md).
 
 ![Prévia real do aplicativo com a tela de entrada original do Énóis](docs/preview/desktop.png)
+
+[Ver captura do Snap instalado](docs/preview/snap-installed.png).
 
 ## Recursos implementados
 

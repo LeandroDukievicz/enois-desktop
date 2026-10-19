@@ -37,14 +37,14 @@ não há afiliação oficial confirmada. Cada checkbox exige evidência verific�
 - [x] Testar o Electron com Playwright, incluindo isolamento do site e persistência.
 - [x] Passar typecheck, lint, formatação, testes e build.
 - [x] Criar CI e workflow de artefatos/release com permissões mínimas.
-- [ ] Publicar código, documentação, capturas e evidências no repositório público.
+- [x] Publicar código, documentação, capturas e evidências no repositório público.
 
 ## M4 · Empacotamento Linux
 
 - [x] Gerar aplicação Linux desempacotada.
 - [x] Gerar `.snap` com confinamento strict.
 - [x] Inspecionar manifesto, dependências e permissões do pacote.
-- [ ] Validar pacote instalado em ambiente de teste, sem desabilitar o sandbox de produção.
+- [x] Validar pacote instalado em ambiente de teste, sem desabilitar o sandbox de produção.
 
 ## M5 · Validação autenticada e lançamento
 
@@ -70,5 +70,8 @@ todos os recursos em Electron. Nenhum backend, entidade ou endpoint privado ser�
   desenvolvimento; a versão corrigida indicada pelo advisory ainda não está no registry.
 - `pnpm package:snap`: artefato core22 de aproximadamente 107 MiB gerado.
 - Manifesto: strict, browser-support com allow-sandbox, sem argumento que desative o sandbox.
+- Snap instalado em Ubuntu 26.04.1, executado em X11/Xvfb; tela original de entrada
+  inspecionada em `docs/preview/snap-installed.png`. Bibliotecas e avisos de licença
+  do Electron/Chromium estão presentes na imagem. Wayland e login real pendentes.
 - core24 foi tentado e falhou no snapd/LXD; motivo e alternativa registrados no ADR 004.
 - Capturas reais e medição inicial em `docs/preview/`; teste com conta real pendente.

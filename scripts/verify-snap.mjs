@@ -9,6 +9,17 @@ if (!/^confinement: strict$/m.test(manifest) || !/allow-sandbox: true/.test(mani
   throw new Error('O pacote precisa de confinamento strict e suporte ao sandbox Chromium.')
 }
 for (const file of [
+  'usr/lib/x86_64-linux-gnu/libnspr4.so',
+  'usr/lib/x86_64-linux-gnu/libnss3.so',
+  'licenses/Electron-LICENSE.txt',
+  'licenses/Chromium-LICENSES.html',
+]) {
+  // Read actual files from the image; do not buffer binaries or long license notices.
+  execFileSync('unsquashfs', ['-cat', artifact, file], {
+    stdio: ['ignore', 'ignore', 'pipe'],
+  })
+}
+for (const file of [
   'command.sh',
   'desktop-init.sh',
   'desktop-common.sh',

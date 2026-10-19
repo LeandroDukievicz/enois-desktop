@@ -20,10 +20,14 @@ cd dist
 sha256sum --check SHA256SUMS
 ```
 
-O hook `build/after-pack.cjs` inclui três scripts desktop da versão instalada do
-electron-builder, ausentes no template legado baixado por 26.15.3. O script de
-empacotamento executa `scripts/verify-snap.mjs` para impedir artefato com launcher
-ausente ou sandbox desativado. Isso surgiu de uma falha real no primeiro teste instalado.
+A versão 26.15.3 deixava o arquivo `.tar` do template dentro do Snap, sem extrair
+suas bibliotecas e launchers. A correção é um patch pnpm versionado em `patches/`,
+com hash no lockfile: extrai o template verificado no staging do projeto e utiliza
+os launchers atuais do builder. Não depende de edição manual de node_modules.
+`scripts/verify-snap.mjs` impede artefatos sem launchers, NSS/NSPR, avisos de licença
+do Electron/Chromium ou sandbox. O hook `build/license-notices.mjs` mantém os avisos
+em `licenses/`, incluído pelo alvo Snap legado.
+Essas verificações foram acrescentadas após falhas reais na instalação de teste.
 
 ## Base e interfaces
 
@@ -31,7 +35,10 @@ core22 usa o template de bibliotecas verificado pelo electron-builder. core24 fo
 avaliado primeiro, mas seu build beta falhou no snapd aninhado do ambiente LXD
 com timeout. O host é Ubuntu 26.04; não se usa modo destrutivo para instalar
 pacotes de outra base no sistema do usuário. Detalhes ficam no ADR 004 e em
-documentacao.md. O pacote core22 será validado instalado antes de ser considerado pronto.
+documentacao.md. O pacote core22 foi instalado e executado em Ubuntu 26.04.1 sob
+X11/Xvfb: a tela original de entrada foi inspecionada na captura
+`docs/preview/snap-installed.png`. Isso valida inicialização e carregamento público;
+login autorizado, aceleração gráfica real e Wayland ainda precisam de QA.
 
 Interfaces explícitas: network, desktop, desktop-legacy, x11, wayland, opengl,
 audio-playback, home e browser-support. O template contém as bibliotecas de desktop.

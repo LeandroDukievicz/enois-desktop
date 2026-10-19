@@ -53,7 +53,7 @@ versão publicada, revisada ou aprovada pela loja.
 ## Material fornecido
 
 O usuário forneceu `Downloads/download.svg`, um diagrama arquitetural, para uso no
-README. Ele será versionado como recurso de documentação; não será tratado como
+README. Ele foi versionado como recurso de documentação; não foi tratado como
 logotipo oficial da plataforma nem como autorização geral de uso da marca.
 
 ## Fundação implementada
@@ -116,7 +116,39 @@ Ela pertence à ferramenta de desenvolvimento/build, não ao runtime distribuíd
    browser-support com allow-sandbox e comando sem desativação de sandbox.
 8. O pacote aplica fuses para impedir RunAsNode, NODE_OPTIONS e inspector Node por
    linha de comando. Não há menu de DevTools em produção.
-9. Instalação e execução locais estão sendo validadas; resultado registrado após conclusão.
+9. O pacote final foi instalado localmente e executado com confinamento strict em
+   Ubuntu 26.04.1/X11/Xvfb. Uma nova ocorrência de `remote.loaded` foi verificada
+   pelo timestamp, aguardando mais 12 segundos antes da captura nativa. A tela de
+   entrada original foi inspecionada em `docs/preview/snap-installed.png`.
+   Não foram usadas credenciais ou argumentos para desativar o sandbox.
+
+### Correção reproduzível do template em 19/10/2026
+
+O teste instalado encontrou primeiro launchers ausentes e depois `libnspr4.so`
+ausente. A causa foi confirmada inspecionando a imagem: ela continha
+`snap-template-electron-4.0-2-amd64.tar` como um arquivo, sem seu conteúdo extraído.
+O arquivo verificado do template já continha as bibliotecas necessárias.
+
+Foi criado um patch pnpm pequeno em `patches/app-builder-lib@26.15.3.patch`. Ele
+extrai o tar no staging do projeto e substitui os launchers legados pelas versões
+do builder instalado. O hook provisório foi removido; a correção e seu hash estão
+no lockfile e foram verificados após reinstalação limpa com `--frozen-lockfile`.
+O build passou a inspecionar também a existência real de libnspr4.so e libnss3.so
+dentro da imagem, além dos launchers e permissões de sandbox.
+
+O hook `build/license-notices.mjs` tem outra responsabilidade: preservar os avisos
+de licença do Electron e Chromium em `licenses/`, pois o alvo Snap legado omite
+esses arquivos da raiz. A inspeção do pacote exige ambos os avisos. Uma captura
+inicial feita imediatamente após o evento de carregamento mostrou apenas o shell;
+ela foi substituída após aguardar e verificar visualmente a renderização do site.
+O ambiente Xvfb registrou avisos de inicialização OpenGL, mas o fallback renderizou
+a interface. Isso não substitui a validação de aceleração gráfica em desktop real.
+
+No CI, o teste que chamava forcefullyCrashRenderer apresentou timeout ao esperar
+o encerramento do processo. O teste passou a enviar SIGKILL exclusivamente ao PID
+do renderer da fixture, para validar uma interrupção real sem depender de coleta
+de crash do sistema operacional. O CI completo passou com 35 testes Vitest e 6 E2E:
+https://github.com/LeandroDukievicz/enois-desktop/actions/runs/39173598461.
 
 ## Baseline de desempenho
 

@@ -41,13 +41,5 @@ export default tseslint.config(
     plugins: { 'react-hooks': reactHooks },
     rules: { 'react-hooks/rules-of-hooks': 'error', 'react-hooks/exhaustive-deps': 'error' },
   },
-  {
-    files: ['build/*.cjs'],
-    languageOptions: {
-      sourceType: 'commonjs',
-      globals: { require: 'readonly', module: 'readonly' },
-    },
-    rules: { '@typescript-eslint/no-require-imports': 'off' },
-  },
   prettier,
 )

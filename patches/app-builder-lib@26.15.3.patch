@@ -1,0 +1,27 @@
+diff --git a/out/targets/snap/coreLegacy.js b/out/targets/snap/coreLegacy.js
+index 63dc31fdbd0d49b5d5b7832f4faaa62bdb684e69..f42b4620ef2e62919127081434e5e4910b519546 100644
+--- a/out/targets/snap/coreLegacy.js
++++ b/out/targets/snap/coreLegacy.js
+@@ -244,7 +244,21 @@ class SnapCoreLegacy extends SnapTarget_1.SnapCore {
+         const templateArch = snapArch === builder_util_1.Arch.x64 ? "amd64" : "armhf";
+         const { releaseName, filenameWithExt, checksums } = SNAP_TEMPLATES[templateArch];
+         builder_util_1.log.info({ releaseName }, "downloading snap template");
+-        const templateDir = await (0, electronGet_1.downloadBuilderToolset)({ releaseName, filenameWithExt, checksums, githubOrgRepo: "electron-userland/electron-builder-binaries" });
++        let templateDir = await (0, electronGet_1.downloadBuilderToolset)({ releaseName, filenameWithExt, checksums, githubOrgRepo: "electron-userland/electron-builder-binaries" });
++        // The toolset extractor unpacks the outer 7z but leaves its inner tar.
++        // Expand that verified archive in the project staging area, not the shared cache.
++        const innerTar = path.join(templateDir, filenameWithExt.replace(/\.7z$/, ""));
++        if (await (0, fs_extra_1.pathExists)(innerTar)) {
++            const expandedTemplate = `${stageDir}-template`;
++            await (0, fs_extra_1.emptyDir)(expandedTemplate);
++            await require("tar").extract({ file: innerTar, cwd: expandedTemplate });
++            // Use the current versioned launcher fixes rather than the legacy tar copies.
++            for (const name of ["desktop-init.sh", "desktop-common.sh", "desktop-gnome-specific.sh"]) {
++                await (0, promises_1.copyFile)(path.join((0, pathManager_1.getTemplatePath)("snap"), name), path.join(expandedTemplate, name));
++                await (0, promises_1.chmod)(path.join(expandedTemplate, name), 0o755);
++            }
++            templateDir = expandedTemplate;
++        }
+         await this.stageSnapFiles({ stageDir, appOutDir, hooksDir, extraAppArgs, isTemplate: true });
+         // Best-effort: remove chrome-sandbox from app dir before mksquashfs scans it.
+         await (0, promises_1.rm)(path.join(appOutDir, "chrome-sandbox"), { force: true });

@@ -2,7 +2,7 @@ appId: io.github.LeandroDukievicz.enois-desktop
 productName: Énóis Desktop
 asar: true
 npmRebuild: false
-afterPack: build/after-pack.cjs
+afterPack: build/license-notices.mjs
 electronFuses:
   runAsNode: false
   enableNodeOptionsEnvironmentVariable: false
@@ -14,6 +14,7 @@ files:
   - out/**/*
   - assets/icons/**/*
   - package.json
+  - LICENSE
 linux:
   syncDesktopName: true
   executableName: enois-desktop
