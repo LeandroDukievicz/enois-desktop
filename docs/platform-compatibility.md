@@ -21,8 +21,10 @@ de seus módulos. As rotas, estética e regras de negócio continuam evoluindo n
 
 ## Pontos que não podem ser presumidos
 
-- OAuth de terceiros estava em construção na documentação consultada. Não se
-  autoriza Google/LinkedIn ou qualquer domínio externo sem inspecionar o fluxo.
+- Google e LinkedIn iniciaram fluxos reais na inspeção da tela original. A menção
+  a OAuth de terceiros em construção na documentação de integrações não demonstra
+  indisponibilidade desses métodos. Veja [a verificação](authentication-verification.md).
+  O retorno à sessão desktop ainda não foi comprovado.
 - O site pode recusar autenticação em navegador incorporado por políticas de seus
   provedores. Abrir o navegador externo não transfere automaticamente a sessão.
 - Web Push depende do runtime/provedor; permitir notificações não implementa um

@@ -163,6 +163,19 @@ monitores e retomada de suspensão ainda precisam de medições próprias.
 
 ## Pendências reais
 
+### Verificação de login iniciada em 19/10/2026
+
+Os botões originais Google e LinkedIn foram acionados em perfis temporários,
+sem credenciais. Ambos iniciaram OAuth real, encaminhado pelo wrapper ao navegador
+externo; o shell permaneceu pronto, sem erro. O retorno à sessão desktop ainda
+depende de confirmação. Evidências, callbacks públicos observados e checklist
+manual estão em [verificação de autenticação](docs/authentication-verification.md).
+
+O Snap foi aberto na sessão gráfica para entrada manual do usuário. O repositório
+foi conferido com `git fetch` e estava sincronizado com `origin/main`, sem commits
+locais pendentes. A partir desta etapa, cada atualização validada é enviada em um
+commit próprio ao remoto.
+
 Login real, 2FA, expiração/renovação, OAuth, Web Push e todos os módulos privados
 exigem validação com conta autorizada. Recursos públicos/documentados e limites
 estão inventariados em docs/platform-compatibility.md. Não se declara paridade

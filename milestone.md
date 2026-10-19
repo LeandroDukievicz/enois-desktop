@@ -48,6 +48,7 @@ não há afiliação oficial confirmada. Cada checkbox exige evidência verific�
 
 ## M5 · Validação autenticada e lançamento
 
+- [x] Inspecionar os botões originais de login e registrar navegação/callbacks sem credenciais.
 - [ ] Validar login, logout, expiração/renovação e 2FA com conta de teste autorizada.
 - [ ] Validar feed, posts, comentários, reações, comunidades e upload.
 - [ ] Validar mensagens, notificações, vagas, eventos e demais módulos disponíveis à conta.
