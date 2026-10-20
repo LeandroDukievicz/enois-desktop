@@ -54,8 +54,8 @@ try {
   const click = async (index) => {
     await delay(250)
     const area = await local.evaluate(() => {
-      const safe = navigator.windowControlsOverlay.getTitlebarAreaRect()
-      return { left: safe.left, right: safe.right, width: innerWidth, height: safe.height }
+      const safe = window.navigator.windowControlsOverlay.getTitlebarAreaRect()
+      return { left: safe.left, right: safe.right, width: window.innerWidth, height: safe.height }
     })
     expect(area.left).toBe(0)
     expect(area.right).toBeLessThan(area.width)
