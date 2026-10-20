@@ -1,0 +1,25 @@
+{
+  "checkedAt": "2026-10-20T11:34:32.377Z",
+  "environment": "Wayland compositor; no account",
+  "pointerInput": "Playwright click on local controls",
+  "implementation": "Local buttons; validated IPC invokes native BrowserWindow operations",
+  "windowButtonClicks": [
+    {
+      "button": "maximize",
+      "passed": true
+    },
+    {
+      "button": "restore",
+      "passed": true
+    },
+    {
+      "button": "minimize",
+      "passed": true
+    },
+    {
+      "button": "close",
+      "passed": true,
+      "exitCode": 0
+    }
+  ]
+}

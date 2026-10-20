@@ -6,14 +6,20 @@ import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 import { setTimeout as delay } from 'node:timers/promises'
 
-// Run through pnpm verify:window-controls, which allocates its own Xvfb display.
-const environment = { ...process.env, WAYLAND_DISPLAY: '', XDG_SESSION_TYPE: 'x11' }
-const manager = spawn('openbox', ['--config-file', '/etc/xdg/openbox/rc.xml'], {
-  env: environment,
-  stdio: 'ignore',
-})
+// X11 allocates its own Xvfb display; Wayland needs an existing compositor.
+const wayland = process.argv.includes('--wayland')
+if (wayland && !process.env.WAYLAND_DISPLAY) throw new Error('Uma sessão Wayland é necessária.')
+const environment = wayland
+  ? { ...process.env }
+  : { ...process.env, WAYLAND_DISPLAY: '', XDG_SESSION_TYPE: 'x11' }
+const manager = wayland
+  ? undefined
+  : spawn('openbox', ['--config-file', '/etc/xdg/openbox/rc.xml'], {
+      env: environment,
+      stdio: 'ignore',
+    })
 let managerError
-manager.on('error', (error) => {
+manager?.on('error', (error) => {
   managerError = error
 })
 const server = createServer((_request, response) => {
@@ -26,16 +32,18 @@ let app
 let appProcess
 const report = {
   checkedAt: new Date().toISOString(),
-  environment: 'X11/Xvfb with Openbox; no account',
-  nativeButtonClicks: [],
+  environment: wayland ? 'Wayland compositor; no account' : 'X11/Xvfb with Openbox; no account',
+  pointerInput: wayland ? 'Playwright click on local controls' : 'xdotool OS pointer input',
+  implementation: 'Local buttons; validated IPC invokes native BrowserWindow operations',
+  windowButtonClicks: [],
 }
 try {
-  await delay(500)
-  if (managerError || manager.exitCode !== null) {
+  if (manager) await delay(500)
+  if (managerError || (manager && manager.exitCode !== null)) {
     throw new Error('Openbox não iniciou. Instale as ferramentas descritas em docs/development.md.')
   }
   app = await electron.launch({
-    args: [resolve('.'), '--ozone-platform=x11'],
+    args: [resolve('.'), `--ozone-platform=${wayland ? 'wayland' : 'x11'}`],
     env: {
       ...environment,
       ENOIS_E2E: '1',
@@ -47,24 +55,30 @@ try {
   appProcess = app.process()
   const local = await app.firstWindow()
   await expect(local.getByRole('status')).toHaveText('Conectado')
-  const handle = await app.evaluate(({ BrowserWindow }) =>
-    BrowserWindow.getAllWindows()[0].getNativeWindowHandle().readUInt32LE(0).toString(),
-  )
-  execFileSync('xdotool', ['windowactivate', '--sync', handle], { env: environment })
+  if (!wayland) {
+    const handle = await app.evaluate(({ BrowserWindow }) =>
+      BrowserWindow.getAllWindows()[0].getNativeWindowHandle().readUInt32LE(0).toString(),
+    )
+    execFileSync('xdotool', ['windowactivate', '--sync', handle], { env: environment })
+  }
   const click = async (index) => {
     await delay(250)
-    const area = await local.evaluate(() => {
-      const safe = window.navigator.windowControlsOverlay.getTitlebarAreaRect()
-      return { left: safe.left, right: safe.right, width: window.innerWidth, height: safe.height }
-    })
-    expect(area.left).toBe(0)
-    expect(area.right).toBeLessThan(area.width)
+    const button = local
+      .getByRole('group', { name: 'Controles da janela' })
+      .getByRole('button')
+      .nth(index)
+    if (wayland) {
+      await button.click()
+      return
+    }
+    const area = await button.boundingBox()
+    expect(area).not.toBeNull()
     const bounds = await app.evaluate(({ BrowserWindow }) =>
       BrowserWindow.getAllWindows()[0].getContentBounds(),
     )
-    const x = Math.round(bounds.x + area.right + ((area.width - area.right) * (index + 0.5)) / 3)
-    const y = Math.round(bounds.y + area.height / 2)
-    // Native controls are outside the DOM. Send real X11 pointer input on this isolated display.
+    const x = Math.round(bounds.x + area.x + area.width / 2)
+    const y = Math.round(bounds.y + area.y + area.height / 2)
+    // Real OS pointer input also verifies that the buttons are outside the drag region.
     execFileSync('xdotool', ['mousemove', '--sync', String(x), String(y), 'click', '1'], {
       env: environment,
     })
@@ -75,13 +89,15 @@ try {
     app.evaluate(({ BrowserWindow }) => BrowserWindow.getAllWindows()[0].isMinimized())
   await click(1)
   await expect.poll(maximized).toBe(true)
-  report.nativeButtonClicks.push({ button: 'maximize', passed: true })
+  report.windowButtonClicks.push({ button: 'maximize', passed: true })
+  await expect(local.getByRole('button', { name: 'Restaurar janela', exact: true })).toBeVisible()
   await click(1)
   await expect.poll(maximized).toBe(false)
-  report.nativeButtonClicks.push({ button: 'restore', passed: true })
+  report.windowButtonClicks.push({ button: 'restore', passed: true })
+  await expect(local.getByRole('button', { name: 'Maximizar janela', exact: true })).toBeVisible()
   await click(0)
   await expect.poll(minimized).toBe(true)
-  report.nativeButtonClicks.push({ button: 'minimize', passed: true })
+  report.windowButtonClicks.push({ button: 'minimize', passed: true })
   await app.evaluate(({ BrowserWindow }) => {
     const window = BrowserWindow.getAllWindows()[0]
     window.restore()
@@ -91,16 +107,16 @@ try {
   await expect.poll(minimized).toBe(false)
   await click(2)
   await expect.poll(() => appProcess.exitCode).toBe(0)
-  report.nativeButtonClicks.push({ button: 'close', passed: true, exitCode: appProcess.exitCode })
+  report.windowButtonClicks.push({ button: 'close', passed: true, exitCode: appProcess.exitCode })
   await mkdir('test-results', { recursive: true })
   await writeFile(
-    'test-results/native-window-controls.json',
+    `test-results/window-controls${wayland ? '-wayland' : ''}.json`,
     `${JSON.stringify(report, null, 2)}\n`,
   )
-  console.log('Controles nativos: maximizar, restaurar, minimizar e fechar passaram.')
+  console.log('Controles da janela: maximizar, restaurar, minimizar e fechar passaram.')
 } finally {
   if (app && appProcess?.exitCode === null) await app.close()
-  manager.kill('SIGTERM')
+  manager?.kill('SIGTERM')
   await rm(profile, { recursive: true, force: true })
   await new Promise((done) => server.close(() => done()))
 }

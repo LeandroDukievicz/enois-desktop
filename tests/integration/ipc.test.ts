@@ -22,6 +22,7 @@ const state: DesktopState = {
   canGoBack: false,
   canGoForward: false,
   settingsOpen: false,
+  isMaximized: false,
   settings: defaultSettings,
   error: null,
 }
@@ -48,6 +49,10 @@ describe('fronteira IPC do processo principal', () => {
     const { event, command, cleanup } = setup()
     await handlers.get(channels.command)!(event, 'reload')
     expect(command).toHaveBeenCalledWith('reload')
+    for (const action of ['minimize-window', 'toggle-maximize-window', 'close-window']) {
+      await handlers.get(channels.command)!(event, action)
+      expect(command).toHaveBeenCalledWith(action)
+    }
     expect(handlers.get(channels.state)!(event)).toEqual(state)
     cleanup()
     expect(handlers.size).toBe(0)
@@ -62,6 +67,11 @@ describe('fronteira IPC do processo principal', () => {
     await expect(handlers.get(channels.command)!(attacker, 'reload')).rejects.toThrow(
       'não permitida',
     )
+    for (const action of ['minimize-window', 'toggle-maximize-window', 'close-window']) {
+      await expect(handlers.get(channels.command)!(attacker, action)).rejects.toThrow(
+        'não permitida',
+      )
+    }
     const subframe = {
       ...event,
       senderFrame: { url: 'enois://app/index.html' },

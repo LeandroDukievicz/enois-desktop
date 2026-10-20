@@ -1,7 +1,9 @@
 {
-  "checkedAt": "2026-10-20T11:06:47.287Z",
+  "checkedAt": "2026-10-20T11:34:44.239Z",
   "environment": "X11/Xvfb with Openbox; no account",
-  "nativeButtonClicks": [
+  "pointerInput": "xdotool OS pointer input",
+  "implementation": "Local buttons; validated IPC invokes native BrowserWindow operations",
+  "windowButtonClicks": [
     {
       "button": "maximize",
       "passed": true

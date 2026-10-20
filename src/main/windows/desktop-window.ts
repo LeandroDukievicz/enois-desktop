@@ -55,12 +55,7 @@ export async function createDesktopWindow(options: {
     center: !saved,
     show: false,
     title: 'Énóis Desktop',
-    titleBarStyle: 'hidden',
-    titleBarOverlay: {
-      color: '#ffffff',
-      symbolColor: '#262230',
-      height: toolbarHeight,
-    },
+    frame: false,
     backgroundColor: '#faf9fc',
     autoHideMenuBar: true,
     icon: join(app.getAppPath(), 'assets/icons/enois-desktop.png'),
@@ -98,6 +93,7 @@ export async function createDesktopWindow(options: {
     canGoBack: false,
     canGoForward: false,
     settingsOpen: false,
+    isMaximized: window.isMaximized(),
     settings: store.settings,
     error: null,
   }
@@ -152,6 +148,16 @@ export async function createDesktopWindow(options: {
   }
   const command = async (action: Command): Promise<void> => {
     switch (action) {
+      case 'minimize-window':
+        window.minimize()
+        break
+      case 'toggle-maximize-window':
+        if (window.isMaximized()) window.unmaximize()
+        else window.maximize()
+        break
+      case 'close-window':
+        window.close()
+        break
       case 'back':
         if (remote.webContents.navigationHistory.canGoBack())
           remote.webContents.navigationHistory.goBack()
@@ -370,6 +376,8 @@ export async function createDesktopWindow(options: {
   const resume = () => publish()
   powerMonitor.on('resume', resume)
   window.on('resize', layout)
+  window.on('maximize', () => publish({ isMaximized: true }))
+  window.on('unmaximize', () => publish({ isMaximized: false }))
   const closing = (event: Electron.Event) => {
     if (quitting) return
     event.preventDefault()

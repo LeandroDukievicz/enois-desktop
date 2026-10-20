@@ -152,8 +152,8 @@ https://github.com/LeandroDukievicz/enois-desktop/actions/runs/39173598461.
 
 ## Baseline de desempenho
 
-Uma amostra local X11/Xvfb de 20/10/2026 registrou aproximadamente 387 ms entre iniciar o processo
-e obter a janela e 3,38 s até o serviço remoto pronto. O segundo valor inclui rede
+Uma amostra local X11/Xvfb de 20/10/2026 registrou aproximadamente 394 ms entre iniciar o processo
+e obter a janela e 2,37 s até o serviço remoto pronto. O segundo valor inclui rede
 e carregamento do site e não mede apenas o shell. A amostra, memória por processo,
 intervalo de CPU e contexto estão em docs/preview/measurements.json.
 
@@ -169,51 +169,42 @@ transparente é o mesmo referenciado em seu HTML público. As cópias preservam 
 bytes originais, e suas fontes/hashes estão em `assets/icons/README.md`.
 O SVG arquitetural fornecido pelo usuário continua no README.
 
-A janela usa `titleBarStyle: hidden` e `titleBarOverlay` com 64 px de altura,
-disponibilizando os controles nativos de minimizar, maximizar/restaurar e fechar.
-O renderer local reserva a área indicada por `env(titlebar-area-x)` e
-`env(titlebar-area-width)`, inclusive quando a janela é estreita. A região livre
-permite arrastar a janela; os botões da navegação usam `app-region: no-drag`.
-Não foi criada uma nova API IPC para controlar janelas, e o conteúdo remoto
-continua sem preload ou acesso nativo.
+A primeira implementação usou o overlay nativo do Electron e passou nos testes
+X11/Xvfb, inclusive com cliques reais. O CI identificou ainda uma condição em que
+`ready-to-show` não era emitido para a janela oculta com view filha. O main passou
+a mostrar a janela após carregar o shell local, antes de iniciar o site. Os 35
+testes Vitest, 10 E2E e o CI do commit `d94d03c` passaram após essa correção.
 
-O E2E verifica o carregamento do símbolo, a presença do overlay nativo e a ausência
-de sobreposição com a navegação nas larguras 760 e 1360 px. Os 35 testes Vitest,
-10 E2E, typecheck, lint, formatação e build passaram nesta etapa.
-Referência: [barra de título do Electron](https://www.electronjs.org/docs/latest/tutorial/custom-title-bar).
+Quando o usuário confirmou o fechamento do aplicativo, o Snap foi atualizado
+para a revisão local `x6`. Sua abertura apresentou SIGSEGV antes de mostrar a
+janela, também reproduzido com perfil vazio. O diagnóstico nativo em perfil
+descartável apontou uma chamada nula no caminho de consulta do tema GTK usado pelo
+overlay. Isso mostrou a necessidade de validar o pacote na sessão gráfica real,
+além dos testes sob Xvfb. Nenhuma sessão de usuário foi limpa ou inspecionada.
 
-Os quatro cliques nativos também passaram em X11/Xvfb com Openbox: maximizar,
-restaurar, minimizar e fechar; o processo terminou com código 0. Foi criado
-`pnpm verify:window-controls`, que isola o display e usa apenas uma fixture local,
-sem credenciais. As ferramentas Openbox/xdotool são opcionais para esse teste e
-não são dependências do aplicativo. O relatório revisado está em
-`docs/verification/window-controls-2026-10-20.json`. A coleta do teste guarda o
-handle do processo antes do fechamento, pois o Playwright descarta seu dispatcher
-quando a aplicação sai. A primeira tentativa de coleta consultou esse dispatcher
-já descartado; o teste foi corrigido e repetido com sucesso.
+A implementação atual usa `frame: false` e três botões no shell React: minimizar,
+maximizar/restaurar e fechar. Os comandos IPC são enumerados e aceitos somente
+do frame principal local; o main chama as APIs específicas de BrowserWindow.
+Os eventos reais de maximização atualizam o rótulo do botão. Fechar mantém o
+tratamento de beforeunload e a limpeza do ciclo de vida. O site continua sem
+preload ou acesso nativo. A decisão e as alternativas estão na
+[ADR 005](docs/architecture/decisions/005-window-controls.md).
 
-As capturas reais de `docs/preview/` foram atualizadas em perfil temporário sem
-conta. A captura agora aguarda o formulário original e o símbolo local carregado,
-evitando registrar apenas a primeira pintura do shell.
+Os 35 testes Vitest e 10 E2E passaram com essa implementação. O E2E confirma a
+janela visível, o símbolo carregado, os controles sem sobreposição nas larguras
+760 e 1360 px, o isolamento remoto e o encerramento pelo botão local sem processos
+órfãos. `pnpm verify:window-controls` usa Xvfb/Openbox/xdotool em display isolado,
+enquanto `pnpm verify:window-controls:wayland` usa o compositor Wayland real e
+cliques Playwright. Ambos usam somente fixture e perfil temporários e verificam
+maximizar, restaurar, minimizar e fechar com saída 0. As ferramentas de teste não
+são dependências do aplicativo. Evidências revisadas ficam em
+`docs/verification/window-controls-2026-10-20.json` e
+`docs/verification/window-controls-wayland-2026-10-20.json`.
 
-O CI desta mudança encontrou uma condição de início que não apareceu no teste
-local: o conteúdo remoto ficava pronto, mas `ready-to-show` não era emitido na
-janela Linux ainda oculta, e o overlay não se tornava visível. Os registros do CI
-tinham `remote.loaded`, sem `window.visible`. O main passou a mostrar a janela
-depois do carregamento do shell local e antes de iniciar o conteúdo remoto,
-sem timer de fallback. O E2E também exige `BrowserWindow.isVisible()`.
-
-Após essa correção, typecheck, lint, formatação, 35 testes Vitest e 10 E2E
-passaram novamente; o CI do commit `d94d03c` também passou. O Snap final foi
-gerado e inspecionado, e o ícone em `meta/gui/icon.png` foi comparado byte a byte
-com o PNG oficial. Seu checksum foi conferido. Evidência em
-`docs/verification/branding-package-2026-10-20.json`.
-
-A tentativa de instalar essa atualização foi recusada pelo snapd porque a
-versão anterior continua aberta. Foi solicitado que o usuário feche a janela
-atual com Alt+F4 para aplicar o pacote. A nova identidade e os controles estão
-no código, na prévia e no artefato; a instalação local dessa revisão permanece
-pendente, sem encerrar à força a sessão em uso.
+As capturas de `docs/preview/` usam perfil temporário sem conta, aguardando o
+formulário original e o símbolo local carregado. O pacote com os controles locais
+será gerado e instalado antes de concluir esta atualização. O registro do pacote
+e da instalação fica em `docs/verification/branding-package-2026-10-20.json`.
 
 ## Pendências reais
 

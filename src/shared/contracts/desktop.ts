@@ -29,6 +29,9 @@ export const commandSchema = z.enum([
   'zoom-in',
   'zoom-out',
   'zoom-reset',
+  'minimize-window',
+  'toggle-maximize-window',
+  'close-window',
 ])
 export type Command = z.infer<typeof commandSchema>
 
@@ -41,6 +44,7 @@ export const stateSchema = z
     canGoBack: z.boolean(),
     canGoForward: z.boolean(),
     settingsOpen: z.boolean(),
+    isMaximized: z.boolean(),
     settings: settingsSchema,
     error: z
       .object({

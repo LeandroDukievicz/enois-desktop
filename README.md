@@ -18,7 +18,7 @@ O nome `enois-desktop` já está reservado na Snap Store; nenhum pacote foi publ
 ## Recursos implementados
 
 - Janela redimensionável, instância única e restauração de dimensões válidas.
-- Logo oficial e botões nativos para minimizar, maximizar/restaurar e fechar.
+- Logo oficial e botões integrados para minimizar, maximizar/restaurar e fechar.
 - Site original sem preload, Node, injeção de CSS ou ponte nativa.
 - Shell React local, carregamento, falha de conexão e reconexão manual.
 - Voltar, avançar, início, recarregar, zoom e atalhos convencionais.
@@ -47,7 +47,7 @@ pnpm build
 pnpm start             # executar build local
 pnpm preview:capture   # capturar a plataforma real, sem login
 pnpm verify:auth       # verificar UI original e roteamento OAuth, sem entrar em conta
-pnpm verify:window-controls # clicar nos controles nativos em display de teste isolado
+pnpm verify:window-controls # clicar nos controles da janela em display de teste isolado
 pnpm package:dir       # executável Linux em dist/linux-unpacked
 pnpm package:snap      # pacote .snap, sem upload
 ```

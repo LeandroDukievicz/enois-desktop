@@ -31,7 +31,9 @@ flowchart TD
 5. `ipc/register.ts` valida o WebContents emissor, frame principal, URL e argumentos.
    O preload existe apenas no shell; expõe estado, comandos enumerados, preferências
    e assinatura de atualização com função de limpeza.
-6. React controla somente carregamento, erro e configurações locais. Quando o site
+6. React controla carregamento, erro, configurações e controles da janela. Os três
+   comandos de janela são enumerados e aceitos somente do frame principal local.
+   Maximizar/restaurar acompanha os eventos reais do sistema operacional. Quando o site
    está pronto, sua view ocupa a região abaixo da barra de 64 DIP.
 
 ## Navegação e recuperação
@@ -62,5 +64,6 @@ mensagens remotas, conteúdo de requests e credenciais não são registrados.
 - [002: conteúdo remoto e IPC](decisions/002-remote-content.md)
 - [003: sessão e dados locais](decisions/003-session.md)
 - [004: Snap e atualizações](decisions/004-distribution.md)
+- [005: controles da janela no Linux](decisions/005-window-controls.md)
 - [Modelo de ameaças](security.md)
 - [Compatibilidade da plataforma](../platform-compatibility.md)

@@ -148,24 +148,19 @@ test('inicia, isola o conteúdo remoto, navega e encerra sem renderers órfãos'
     await expect
       .poll(() =>
         shell.evaluate(() => {
-          const overlay = (
-            navigator as Navigator & {
-              windowControlsOverlay?: { visible: boolean; getTitlebarAreaRect(): DOMRect }
-            }
-          ).windowControlsOverlay
-          const safe = overlay?.getTitlebarAreaRect()
-          const controls = document.querySelector('.toolbar-end')!.getBoundingClientRect()
+          const navigation = document.querySelector('.toolbar-end')!.getBoundingClientRect()
+          const controls = document.querySelector('.window-controls')!.getBoundingClientRect()
           return Boolean(
-            overlay?.visible &&
-            safe &&
-            safe.width > 0 &&
-            safe.width < window.innerWidth &&
-            controls.left >= safe.left &&
-            controls.right <= safe.right,
+            controls.width > 0 &&
+            navigation.right <= controls.left &&
+            controls.right <= window.innerWidth,
           )
         }),
       )
       .toBe(true)
+    for (const name of ['Minimizar janela', 'Maximizar janela', 'Fechar janela']) {
+      await expect(shell.getByRole('button', { name, exact: true })).toBeVisible()
+    }
   }
   const page = await remotePage()
   await expect(page.getByRole('heading', { name: 'Comunidade de teste' })).toBeVisible()
@@ -196,7 +191,8 @@ test('inicia, isola o conteúdo remoto, navega e encerra sem renderers órfãos'
       .filter((metric) => metric.type === 'Tab')
       .map((metric) => metric.pid),
   )
-  await application!.close()
+  await shell.getByRole('button', { name: 'Fechar janela', exact: true }).click()
+  await expect.poll(() => appProcess.exitCode).toBe(0)
   expect(appProcess.exitCode).toBe(0)
   await expect
     .poll(() =>

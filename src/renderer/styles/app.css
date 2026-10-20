@@ -39,6 +39,7 @@ input:focus-visible {
   overflow: hidden;
 }
 .toolbar {
+  display: flex;
   height: 64px;
   background: var(--surface);
   border-bottom: 1px solid var(--line);
@@ -46,8 +47,8 @@ input:focus-visible {
 }
 .toolbar-content {
   height: 100%;
-  margin-left: env(titlebar-area-x, 0px);
-  width: env(titlebar-area-width, 100%);
+  flex: 1;
+  min-width: 0;
   display: flex;
   align-items: center;
   gap: 17px;
@@ -56,6 +57,22 @@ input:focus-visible {
 }
 .toolbar button {
   app-region: no-drag;
+}
+.window-controls {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 4px;
+  padding: 0 12px;
+  border-left: 1px solid var(--line);
+}
+.window-controls .icon-button {
+  border-radius: 50%;
+  background: #f3f1f5;
+}
+.window-controls .close-window:hover {
+  background: #c43d54;
+  color: white;
 }
 .app-identity {
   display: flex;

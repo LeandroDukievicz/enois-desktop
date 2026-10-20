@@ -38,7 +38,7 @@ não há afiliação oficial confirmada. Cada checkbox exige evidência verific�
 - [x] Passar typecheck, lint, formatação, testes e build.
 - [x] Criar CI e workflow de artefatos/release com permissões mínimas.
 - [x] Publicar código, documentação, capturas e evidências no repositório público.
-- [x] Adotar ícone oficial e controles nativos da janela com área reservada na barra.
+- [x] Adotar ícone oficial e controles da janela no shell local, sem sobrepor a navegação.
 
 ## M4 · Empacotamento Linux
 

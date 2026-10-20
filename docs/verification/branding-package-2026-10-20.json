@@ -8,6 +8,6 @@
   "nativeControls": ["minimize", "maximize", "restore", "close"],
   "nativeClickEvidence": "window-controls-2026-10-20.json",
   "snapInspection": "strict; sandbox enabled; launchers, libraries and license notices verified",
-  "localInstallation": "pending: snapd refused replacement because the installed app is running",
+  "localInstallation": "installed as x6; startup failed with SIGSEGV before window.visible, also reproduced with an empty profile; corrected package pending",
   "storePublication": "not performed"
 }

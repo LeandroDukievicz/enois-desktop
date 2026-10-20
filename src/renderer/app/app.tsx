@@ -12,6 +12,7 @@ import {
 } from 'lucide-react'
 import { IconButton } from '../components/icon-button'
 import { SettingsPanel } from '../components/settings-panel'
+import { WindowControls } from '../components/window-controls'
 import { useDesktop } from '../hooks/use-desktop'
 import officialMark from '../../../assets/icons/enois-mark.svg'
 
@@ -94,6 +95,7 @@ export function App() {
             </IconButton>
           </div>
         </div>
+        <WindowControls isMaximized={state?.isMaximized ?? false} command={command} />
       </header>
       {state?.settingsOpen ? (
         <SettingsPanel state={state} command={command} updateSettings={updateSettings} />

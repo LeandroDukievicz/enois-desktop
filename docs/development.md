@@ -62,10 +62,11 @@ parte do CI, pois depende da rede e da interface remota. O sucesso deste comando
 não representa login autenticado ou retorno OAuth ao desktop. Veja
 [o resultado e a validação manual](authentication-verification.md).
 
-## Verificar os controles nativos
+## Verificar os controles da janela
 
 O teste opcional usa Xvfb, Openbox e xdotool para enviar cliques reais aos botões
-nativos, que não pertencem ao DOM do renderer. Em Ubuntu, instale as ferramentas
+do shell local e conferir o estado nativo da janela, incluindo a alternância do
+rótulo maximizar/restaurar. Em Ubuntu, instale as ferramentas
 de teste com `sudo apt-get install --no-install-recommends xvfb xauth openbox xdotool`.
 
 ```bash
@@ -75,9 +76,15 @@ pnpm verify:window-controls
 O comando cria um display próprio, inicia apenas seu gerenciador de janelas,
 usa servidor/perfil temporários sem conta e verifica maximizar, restaurar,
 minimizar e fechar com saída 0. A janela do usuário não recebe esses cliques.
-O relatório fica em `test-results/native-window-controls.json`. A suíte E2E
-principal também verifica o logo carregado e a área segura dos controles nas
+O relatório fica em `test-results/window-controls.json`. A suíte E2E
+principal também verifica o logo carregado e a separação dos controles nas
 larguras 760 e 1360 px, sem depender dessas ferramentas opcionais.
+
+Em uma sessão Wayland real, execute `pnpm verify:window-controls:wayland`. Esse modo
+abre uma janela descartável no compositor atual, usa cliques Playwright nos
+controles locais e verifica os estados reais de BrowserWindow. Não requer Openbox
+ou xdotool. Seu relatório fica em `test-results/window-controls-wayland.json`.
+Ambos os modos fecham somente seu perfil temporário e não usam contas reais.
 
 ## Capturar prévia real
 
