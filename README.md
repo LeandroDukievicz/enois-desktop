@@ -8,9 +8,11 @@ tema e regras de negócio continuam sendo entregues pela plataforma original.
 O código local acrescenta navegação, ciclo de vida, sessão persistente e recuperação
 de erros. Não há afiliação oficial confirmada.
 
-**Status:** fundação `0.1.0` executável; Snap strict gerado, instalado e testado em X11.
+**Status:** fundação `0.1.0` executável; Snap strict gerado, instalado e testado em Linux.
 Login autenticado e compatibilidade completa ainda estão em validação.
-O nome `enois-desktop` já está reservado na Snap Store; nenhum pacote foi publicado. Veja os checkpoints em
+A primeira revisão foi enviada à Snap Store com solicitação de liberação em `edge`.
+O [estado confirmado pela loja](docs/store-publication.md) distingue envio e publicação.
+Veja os checkpoints em
 [milestone.md](milestone.md) e o registro de criação em [documentacao.md](documentacao.md).
 
 ![Prévia real do aplicativo com a tela de entrada original do Énóis](docs/preview/desktop.png)
@@ -68,6 +70,7 @@ em `package.json` e `pnpm-lock.yaml`.
 - [Verificação de autenticação](docs/authentication-verification.md)
 - [Empacotamento](docs/packaging.md)
 - [Processo de release](docs/release-process.md)
+- [Publicação na Snap Store](docs/store-publication.md)
 - [Contribuição](CONTRIBUTING.md)
 
 ## Limites conhecidos

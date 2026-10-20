@@ -1,0 +1,19 @@
+{
+  "checkedAt": "2026-10-20T19:16:52.225253+00:00",
+  "name": "enois-desktop",
+  "version": "0.1.0",
+  "architecture": "amd64",
+  "sourceCommit": "e8f0110556e53ee63c4cb16bff4a7d8a3bfd592f",
+  "tag": "v0.1.0",
+  "artifact": "684c453c965b6e68e46452ce217b2a55e5314c4ace9b8f68ffaf0e28d669ec20  enois-desktop_0.1.0_amd64.snap",
+  "storeRevision": 1,
+  "uploadedAt": "2026-10-20T19:14:26Z",
+  "requestedChannel": "latest/edge",
+  "processingStatus": "processing",
+  "releasedChannels": [],
+  "metadataUpload": "success: summary, description and icon",
+  "confinement": "strict",
+  "chromiumSandbox": true,
+  "tagBuild": "https://github.com/LeandroDukievicz/enois-desktop/actions/runs/39481721215",
+  "scope": "Authorized first upload; no claim of store availability before channel release confirmation"
+}

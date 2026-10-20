@@ -290,3 +290,12 @@ A preparação, hash, commit e resultado da loja são registrados em
 [publicação na Snap Store](docs/store-publication.md). A autorização desta sessão
 é suficiente para esse envio, sem solicitar novamente confirmação. Envio, revisão
 e liberação do canal serão registrados conforme o resultado real da loja.
+
+O commit de preparação `5a44a9b` foi enviado a `origin/main`, e a tag anotada
+`v0.1.0` foi publicada apontando ao commit do código empacotado `e8f0110`.
+O workflow acionado pela tag também passou. A loja recebeu o pacote como revisão
+`1`, versão `0.1.0`, arquitetura amd64, em 20/10/2026 às 19:14:26 UTC.
+`snapcraft upload-metadata` confirmou o envio do resumo, descrição e ícone.
+A solicitação de liberação é `latest/edge`; durante o processamento, a consulta
+`snapcraft status` ainda informou ausência de revisões liberadas. Isso comprova
+submissão, mas ainda não disponibilidade para instalação pela loja.
