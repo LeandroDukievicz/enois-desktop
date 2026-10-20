@@ -81,9 +81,11 @@ export async function createDesktopWindow(options: {
       spellcheck: true,
     },
   })
+  // The view clears its webContents property when destroyed; keep the handle for cleanup.
+  const remoteContents = remote.webContents
   window.contentView.addChildView(remote)
   remote.setVisible(false)
-  remote.webContents.setZoomFactor(store.settings.zoom)
+  remoteContents.setZoomFactor(store.settings.zoom)
 
   let state: DesktopState = {
     version: app.getVersion(),
@@ -103,7 +105,7 @@ export async function createDesktopWindow(options: {
   let closeRequested = false
 
   const layout = () => {
-    if (window.isDestroyed() || remote.webContents.isDestroyed()) return
+    if (window.isDestroyed() || remoteContents.isDestroyed()) return
     const bounds = window.getContentBounds()
     remote.setBounds({
       x: 0,
@@ -114,12 +116,12 @@ export async function createDesktopWindow(options: {
     remote.setVisible(state.phase === 'ready' && !state.settingsOpen)
   }
   const publish = (change: Partial<DesktopState> = {}) => {
-    if (window.isDestroyed() || remote.webContents.isDestroyed()) return
+    if (window.isDestroyed() || remoteContents.isDestroyed()) return
     state = {
       ...state,
       online: net.isOnline(),
-      canGoBack: remote.webContents.navigationHistory.canGoBack(),
-      canGoForward: remote.webContents.navigationHistory.canGoForward(),
+      canGoBack: remoteContents.navigationHistory.canGoBack(),
+      canGoForward: remoteContents.navigationHistory.canGoForward(),
       ...change,
     }
     layout()
@@ -133,9 +135,9 @@ export async function createDesktopWindow(options: {
     if (classifyNavigation(url, origin) !== 'internal') url = options.remoteUrl
     publish({ phase: 'loading', error: null })
     try {
-      await remote.webContents.loadURL(url)
+      await remoteContents.loadURL(url)
     } catch {
-      if (!remote.webContents.isDestroyed() && state.phase !== 'error') {
+      if (!remoteContents.isDestroyed() && state.phase !== 'error') {
         fail('connection', 'Não foi possível carregar o Énóis. Tente novamente em instantes.')
       }
     }
@@ -143,7 +145,7 @@ export async function createDesktopWindow(options: {
 
   const updateSettings = async (settings: Settings) => {
     await store.saveSettings(settings)
-    remote.webContents.setZoomFactor(settings.zoom)
+    remoteContents.setZoomFactor(settings.zoom)
     publish({ settings: store.settings })
   }
   const command = async (action: Command): Promise<void> => {
@@ -159,15 +161,14 @@ export async function createDesktopWindow(options: {
         window.close()
         break
       case 'back':
-        if (remote.webContents.navigationHistory.canGoBack())
-          remote.webContents.navigationHistory.goBack()
+        if (remoteContents.navigationHistory.canGoBack()) remoteContents.navigationHistory.goBack()
         break
       case 'forward':
-        if (remote.webContents.navigationHistory.canGoForward())
-          remote.webContents.navigationHistory.goForward()
+        if (remoteContents.navigationHistory.canGoForward())
+          remoteContents.navigationHistory.goForward()
         break
       case 'reload':
-        await load(remote.webContents.getURL())
+        await load(remoteContents.getURL())
         break
       case 'home':
         await load()
@@ -193,8 +194,8 @@ export async function createDesktopWindow(options: {
           cancelId: 0,
         })
         if (response !== 1) break
-        remote.webContents.stop()
-        await remote.webContents.loadURL('about:blank')
+        remoteContents.stop()
+        await remoteContents.loadURL('about:blank')
         await remoteSession.clearStorageData()
         await remoteSession.clearCache()
         remoteSession.flushStorageData()
@@ -239,7 +240,7 @@ export async function createDesktopWindow(options: {
     log,
   )
   attachRemoteNavigation({
-    contents: remote.webContents,
+    contents: remoteContents,
     window,
     origin,
     getSettings: () => store.settings,
@@ -264,7 +265,7 @@ export async function createDesktopWindow(options: {
     if (!window.isDestroyed()) window.webContents.reload()
   })
 
-  remote.webContents.on('did-start-navigation', (details) => {
+  remoteContents.on('did-start-navigation', (details) => {
     if (
       !details.isMainFrame ||
       details.isSameDocument ||
@@ -275,18 +276,18 @@ export async function createDesktopWindow(options: {
     publish({ phase: 'loading', error: null })
     clearTimeout(timeout)
     timeout = setTimeout(() => {
-      remote.webContents.stop()
+      remoteContents.stop()
       fail('connection', 'O Énóis está demorando para responder. Você pode tentar novamente.')
       log('remote.timeout', '30000', 'warn')
     }, 30_000)
   })
-  remote.webContents.on('did-stop-loading', () => {
+  remoteContents.on('did-stop-loading', () => {
     clearTimeout(timeout)
-    if (classifyNavigation(remote.webContents.getURL(), origin) !== 'internal') return
+    if (classifyNavigation(remoteContents.getURL(), origin) !== 'internal') return
     if (state.phase !== 'error') publish({ phase: 'ready', error: null })
     log('remote.loaded', state.phase, 'info', { elapsed_ms: performance.now() - loadStarted })
   })
-  remote.webContents.on('did-fail-load', (_event, code, _description, _url, mainFrame) => {
+  remoteContents.on('did-fail-load', (_event, code, _description, _url, mainFrame) => {
     if (!mainFrame || code === -3) return
     log('remote.load_failed', code, 'error')
     const offline = code === -106 || !net.isOnline()
@@ -297,7 +298,7 @@ export async function createDesktopWindow(options: {
         : 'Não foi possível conectar ao Énóis. O serviço pode estar indisponível.',
     )
   })
-  remote.webContents.on('did-navigate', (_event, _url, status) => {
+  remoteContents.on('did-navigate', (_event, _url, status) => {
     if (status >= 400) {
       fail('http', `O Énóis respondeu com erro ${status}. Tente novamente em instantes.`)
       log('remote.http_failed', status, 'warn')
@@ -305,15 +306,15 @@ export async function createDesktopWindow(options: {
     publish()
     log('navigation.internal')
   })
-  remote.webContents.on('did-navigate-in-page', () => publish())
-  remote.webContents.on('page-title-updated', (_event, title) =>
+  remoteContents.on('did-navigate-in-page', () => publish())
+  remoteContents.on('page-title-updated', (_event, title) =>
     publish({ title: title.slice(0, 240) }),
   )
-  remote.webContents.on('render-process-gone', (_event, details) => {
+  remoteContents.on('render-process-gone', (_event, details) => {
     log('remote.crashed', details.reason, 'error')
     fail('crashed', 'A página foi interrompida. Recarregue para continuar de onde parou.')
   })
-  remote.webContents.on('will-prevent-unload', (event) => {
+  remoteContents.on('will-prevent-unload', (event) => {
     const choice = dialog.showMessageBoxSync(window, {
       type: 'question',
       message: 'Sair desta página?',
@@ -389,13 +390,13 @@ export async function createDesktopWindow(options: {
       .catch(() => log('settings.bounds_failed', 'write', 'warn'))
       .finally(() => {
         remoteSession.flushStorageData()
-        if (remote.webContents.isDestroyed()) {
+        if (remoteContents.isDestroyed()) {
           quitting = true
           window.close()
-        } else remote.webContents.close({ waitForBeforeUnload: true })
+        } else remoteContents.close({ waitForBeforeUnload: true })
       })
   }
-  remote.webContents.once('destroyed', () => {
+  remoteContents.once('destroyed', () => {
     if (closeRequested && !window.isDestroyed()) {
       quitting = true
       window.close()
@@ -407,7 +408,7 @@ export async function createDesktopWindow(options: {
     powerMonitor.removeListener('resume', resume)
     cleanupIpc()
     cleanupSession()
-    if (!remote.webContents.isDestroyed()) remote.webContents.close({ waitForBeforeUnload: false })
+    if (!remoteContents.isDestroyed()) remoteContents.close({ waitForBeforeUnload: false })
     log('window.closed')
   })
 

@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-20T11:34:44.239Z",
+  "checkedAt": "2026-10-20T11:40:17.500Z",
   "environment": "X11/Xvfb with Openbox; no account",
   "pointerInput": "xdotool OS pointer input",
   "implementation": "Local buttons; validated IPC invokes native BrowserWindow operations",
@@ -21,5 +21,6 @@
       "passed": true,
       "exitCode": 0
     }
-  ]
+  ],
+  "shutdownWithoutExceptions": true
 }

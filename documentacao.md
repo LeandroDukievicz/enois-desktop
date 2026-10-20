@@ -190,6 +190,15 @@ tratamento de beforeunload e a limpeza do ciclo de vida. O site continua sem
 preload ou acesso nativo. A decisão e as alternativas estão na
 [ADR 005](docs/architecture/decisions/005-window-controls.md).
 
+A revisão `x7` abriu a janela e carregou a plataforma, mas a observação dos logs
+encontrou uma exceção durante o fechamento. A reprodução em perfil descartável
+mostrou que `WebContentsView.webContents` já estava indefinido no evento `closed`.
+O main agora guarda a referência de WebContents desde a criação e consulta
+`isDestroyed()` nesse objeto durante a limpeza. Os testes passaram a exigir
+`window.closed` e a ausência de exceções/rejeições não tratadas nos logs depois
+de fechar, além da saída 0. Isso evita considerar um encerramento com erro como
+sucesso apenas porque o handler global chamou `app.quit()`.
+
 Os 35 testes Vitest e 10 E2E passaram com essa implementação. O E2E confirma a
 janela visível, o símbolo carregado, os controles sem sobreposição nas larguras
 760 e 1360 px, o isolamento remoto e o encerramento pelo botão local sem processos

@@ -96,7 +96,13 @@ test.afterEach(async ({}, testInfo) => {
   }
   await application?.close()
   application = undefined
-  await rm(profile, { recursive: true, force: true })
+  try {
+    const log = await readFile(join(profile, 'logs/desktop.log'), 'utf8')
+    expect(log).not.toMatch(/"event":"app\.(?:uncaught_exception|unhandled_rejection)"/)
+    expect(log).toContain('"event":"window.closed"')
+  } finally {
+    await rm(profile, { recursive: true, force: true })
+  }
 })
 
 async function launch() {

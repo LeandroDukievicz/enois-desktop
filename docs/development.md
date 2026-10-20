@@ -76,6 +76,8 @@ pnpm verify:window-controls
 O comando cria um display próprio, inicia apenas seu gerenciador de janelas,
 usa servidor/perfil temporários sem conta e verifica maximizar, restaurar,
 minimizar e fechar com saída 0. A janela do usuário não recebe esses cliques.
+O teste exige também o evento `window.closed` e nenhum erro de main nos logs de
+encerramento: saída 0 sozinha não comprova limpeza correta.
 O relatório fica em `test-results/window-controls.json`. A suíte E2E
 principal também verifica o logo carregado e a separação dos controles nas
 larguras 760 e 1360 px, sem depender dessas ferramentas opcionais.

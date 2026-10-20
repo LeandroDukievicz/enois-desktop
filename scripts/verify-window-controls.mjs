@@ -1,7 +1,7 @@
 import { _electron as electron, expect } from '@playwright/test'
 import { execFileSync, spawn } from 'node:child_process'
 import { createServer } from 'node:http'
-import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises'
+import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 import { setTimeout as delay } from 'node:timers/promises'
@@ -107,6 +107,10 @@ try {
   await expect.poll(minimized).toBe(false)
   await click(2)
   await expect.poll(() => appProcess.exitCode).toBe(0)
+  const log = await readFile(join(profile, 'logs/desktop.log'), 'utf8')
+  expect(log).not.toMatch(/"event":"app\.(?:uncaught_exception|unhandled_rejection)"/)
+  expect(log).toContain('"event":"window.closed"')
+  report.shutdownWithoutExceptions = true
   report.windowButtonClicks.push({ button: 'close', passed: true, exitCode: appProcess.exitCode })
   await mkdir('test-results', { recursive: true })
   await writeFile(

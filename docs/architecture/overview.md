@@ -24,7 +24,9 @@ flowchart TD
    validadas. Corrupção recupera os padrões, sem impedir abertura.
 3. `windows/desktop-window.ts` cria janela e conteúdo remoto, configura lifecycle,
    menus, atalhos, estados e encerramento. Dimensões restauradas são limitadas à
-   área útil do monitor existente.
+   área útil do monitor existente. A referência do WebContents remoto é guardada
+   na criação, permitindo verificar sua destruição no fechamento mesmo quando a
+   view já não expõe a propriedade `webContents`.
 4. `security/` aplica protocolo local, políticas de navegação e permissões. Recursos
    HTTPS de terceiros não recebem bloqueio indiscriminado; jogos e mídia mantêm a
    política web da plataforma, sem permissões nativas herdadas.
