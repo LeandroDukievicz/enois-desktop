@@ -276,3 +276,17 @@ funcional completa apenas porque o site original está carregado.
 A revisão da Snap Store, confirmação de direitos sobre logotipo oficial, página
 da loja e promoção de canais permanecem etapas futuras. Reservar o nome não
 significa publicar uma versão. O workflow gera artefatos e não faz upload automático.
+
+## Primeira publicação na Snap Store — 20/10/2026
+
+O usuário autorizou explicitamente commit/push e publicação na loja. Foi escolhido
+`latest/edge`, pois os testes automatizados e o smoke instalado passaram, enquanto
+login real e QA completo continuam pendentes para os canais mais estáveis.
+O repositório foi conferido e estava sincronizado com `origin/main`. O artefato
+validado da revisão local `x8` foi inspecionado novamente e seu checksum passou;
+as alterações posteriores ao código empacotado são exclusivamente documentais.
+
+A preparação, hash, commit e resultado da loja são registrados em
+[publicação na Snap Store](docs/store-publication.md). A autorização desta sessão
+é suficiente para esse envio, sem solicitar novamente confirmação. Envio, revisão
+e liberação do canal serão registrados conforme o resultado real da loja.
