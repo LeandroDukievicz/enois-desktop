@@ -38,7 +38,17 @@ pacotes de outra base no sistema do usuário. Detalhes ficam no ADR 004 e em
 documentacao.md. O pacote core22 foi instalado e executado em Ubuntu 26.04.1 sob
 X11/Xvfb: a tela original de entrada foi inspecionada na captura
 `docs/preview/snap-installed.png`. Isso valida inicialização e carregamento público;
-login autorizado, aceleração gráfica real e Wayland ainda precisam de QA.
+login autorizado e aceleração gráfica real ainda precisam de QA.
+
+Em 20/10/2026, a revisão local `x8`, já com logo oficial e controles locais,
+foi instalada e executada na sessão GNOME/Wayland sem flags gráficas. O smoke em
+perfil descartável verificou janela visível, site pronto e encerramento sem
+exceções. O perfil habitual também foi reaberto sem limpar seus dados. Evidências:
+`docs/verification/branding-package-2026-10-20.json` e
+`docs/verification/installed-branding-smoke-2026-10-20.json`.
+Os controles foram testados separadamente em X11/Xvfb e Wayland com estado real
+de BrowserWindow; a matriz completa de ambientes, HiDPI e múltiplos monitores
+continua pendente.
 
 Interfaces explícitas: network, desktop, desktop-legacy, x11, wayland, opengl,
 audio-playback, home e browser-support. O template contém as bibliotecas de desktop.

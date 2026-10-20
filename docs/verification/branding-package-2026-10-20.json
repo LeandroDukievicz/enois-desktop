@@ -1,13 +1,88 @@
 {
-  "checkedAt": "2026-10-20T11:15:56.603377+00:00",
-  "sourceCommit": "d94d03c67b3341bd0f2bd92b059483093fcad217",
-  "artifact": "2289e2871e4df6e2cc5933807d40e7f3f08981822923f387137734e6e45cb7ec  enois-desktop_0.1.0_amd64.snap",
+  "checkedAt": "2026-10-20T18:44:57.297354+00:00",
+  "sourceCommit": "e8f0110556e53ee63c4cb16bff4a7d8a3bfd592f",
+  "artifact": "684c453c965b6e68e46452ce217b2a55e5314c4ace9b8f68ffaf0e28d669ec20  enois-desktop_0.1.0_amd64.snap",
   "officialIconSource": "https://enois.ia.br/icons/brand-icon-512.png",
   "packagedIconSha256": "84795c9441ba52676133e9a47920fb8761ff35a64bd4aba3a4ad1357feffc4be",
   "packagedIconMatchesSource": true,
-  "nativeControls": ["minimize", "maximize", "restore", "close"],
-  "nativeClickEvidence": "window-controls-2026-10-20.json",
+  "windowControls": ["minimize", "maximize", "restore", "close"],
+  "windowControlImplementation": "Local React controls; enumerated IPC commands accepted only from the local main frame",
+  "controlEvidence": ["window-controls-2026-10-20.json", "window-controls-wayland-2026-10-20.json"],
   "snapInspection": "strict; sandbox enabled; launchers, libraries and license notices verified",
-  "localInstallation": "installed as x6; startup failed with SIGSEGV before window.visible, also reproduced with an empty profile; corrected package pending",
-  "storePublication": "not performed"
+  "localInstallation": {
+    "revision": "x8",
+    "launch": "snap run enois-desktop",
+    "platform": "Ubuntu 26.04.1; GNOME session with XDG_SESSION_TYPE=wayland",
+    "forcedGraphicsFlags": false,
+    "windowVisible": true,
+    "remoteReadyEvents": 2,
+    "errorsObserved": [],
+    "runningAtObservation": true,
+    "profile": "existing profile retained; no credentials or private page content inspected",
+    "events": [
+      {
+        "time": "2026-10-20T18:44:32.766Z",
+        "level": "info",
+        "event": "app.started",
+        "code": "0.1.0",
+        "metrics": {}
+      },
+      {
+        "time": "2026-10-20T18:44:32.865Z",
+        "level": "info",
+        "event": "window.visible",
+        "code": "ok",
+        "metrics": {
+          "elapsed_ms": 117.735681
+        }
+      },
+      {
+        "time": "2026-10-20T18:44:34.298Z",
+        "level": "info",
+        "event": "navigation.internal",
+        "code": "ok",
+        "metrics": {}
+      },
+      {
+        "time": "2026-10-20T18:44:35.026Z",
+        "level": "info",
+        "event": "remote.loaded",
+        "code": "ready",
+        "metrics": {
+          "elapsed_ms": 2157.84388
+        }
+      },
+      {
+        "time": "2026-10-20T18:44:35.226Z",
+        "level": "info",
+        "event": "remote.loaded",
+        "code": "ready",
+        "metrics": {
+          "elapsed_ms": 2358.636641
+        }
+      }
+    ]
+  },
+  "installedShutdownEvidence": "installed-branding-smoke-2026-10-20.json",
+  "ci": {
+    "status": "success",
+    "url": "https://github.com/LeandroDukievicz/enois-desktop/actions/runs/39477191619"
+  },
+  "previousFailedRevisions": [
+    {
+      "revision": "x6",
+      "sourceCommit": "d94d03c67b3341bd0f2bd92b059483093fcad217",
+      "failure": "SIGSEGV during native GTK overlay initialization, also reproduced with an empty profile; replaced by local controls"
+    },
+    {
+      "revision": "x7",
+      "sourceCommit": "15d3486c8121513d96ea3aceba5d3b8e15b20c73",
+      "failure": "Exception during shutdown after the view cleared its webContents property; fixed by retaining the WebContents handle"
+    }
+  ],
+  "storePublication": "not performed",
+  "artifactWorkflow": {
+    "status": "success",
+    "url": "https://github.com/LeandroDukievicz/enois-desktop/actions/runs/39477248521"
+  }
 }

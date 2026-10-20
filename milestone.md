@@ -46,6 +46,7 @@ não há afiliação oficial confirmada. Cada checkbox exige evidência verific�
 - [x] Gerar `.snap` com confinamento strict.
 - [x] Inspecionar manifesto, dependências e permissões do pacote.
 - [x] Validar pacote instalado em ambiente de teste, sem desabilitar o sandbox de produção.
+- [x] Instalar logo/controles finais e verificar inicialização e encerramento sem exceções no Snap.
 
 ## M5 · Validação autenticada e lançamento
 
@@ -76,6 +77,13 @@ todos os recursos em Electron. Nenhum backend, entidade ou endpoint privado ser�
 - Manifesto: strict, browser-support com allow-sandbox, sem argumento que desative o sandbox.
 - Snap instalado em Ubuntu 26.04.1, executado em X11/Xvfb; tela original de entrada
   inspecionada em `docs/preview/snap-installed.png`. Bibliotecas e avisos de licença
-  do Electron/Chromium estão presentes na imagem. Wayland e login real pendentes.
+  do Electron/Chromium estão presentes na imagem.
+- Revisão final `x8` instalada na sessão GNOME/Wayland, sem flags gráficas; janela,
+  carregamento e encerramento sem exceções verificados em perfil descartável.
+  Perfil habitual reaberto com dados locais preservados. Evidências em
+  `docs/verification/branding-package-2026-10-20.json` e
+  `docs/verification/installed-branding-smoke-2026-10-20.json`.
+- Controles de minimizar, maximizar/restaurar e fechar passaram em X11 e Wayland;
+  teste com conta real e matriz completa de ambientes continuam pendentes.
 - core24 foi tentado e falhou no snapd/LXD; motivo e alternativa registrados no ADR 004.
 - Capturas reais e medição inicial em `docs/preview/`; teste com conta real pendente.

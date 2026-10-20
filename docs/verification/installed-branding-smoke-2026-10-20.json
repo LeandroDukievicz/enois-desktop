@@ -1,0 +1,80 @@
+{
+  "checkedAt": "2026-10-20T18:44:24.462436+00:00",
+  "sourceCommit": "e8f0110556e53ee63c4cb16bff4a7d8a3bfd592f",
+  "artifact": "684c453c965b6e68e46452ce217b2a55e5314c4ace9b8f68ffaf0e28d669ec20  enois-desktop_0.1.0_amd64.snap",
+  "snapLocalRevision": "x8",
+  "environment": "GNOME session with XDG_SESSION_TYPE=wayland; installed strict Snap; no graphics flags",
+  "profile": "disposable; no account or credentials",
+  "launch": "snap run enois-desktop --user-data-dir=<disposable-profile>",
+  "observedSeconds": 16.183,
+  "windowVisible": true,
+  "remoteReady": true,
+  "termination": "SIGTERM sent only to disposable test process",
+  "windowClosed": true,
+  "exitCode": 0,
+  "errors": [],
+  "events": [
+    {
+      "time": "2026-10-20T18:44:13.070Z",
+      "level": "info",
+      "event": "app.started",
+      "code": "0.1.0",
+      "metrics": {}
+    },
+    {
+      "time": "2026-10-20T18:44:14.263Z",
+      "level": "info",
+      "event": "window.visible",
+      "code": "ok",
+      "metrics": {
+        "elapsed_ms": 1466.205039
+      }
+    },
+    {
+      "time": "2026-10-20T18:44:15.006Z",
+      "level": "info",
+      "event": "navigation.internal",
+      "code": "ok",
+      "metrics": {}
+    },
+    {
+      "time": "2026-10-20T18:44:15.856Z",
+      "level": "info",
+      "event": "remote.loaded",
+      "code": "ready",
+      "metrics": {
+        "elapsed_ms": 1589.5610580000002
+      }
+    },
+    {
+      "time": "2026-10-20T18:44:16.067Z",
+      "level": "info",
+      "event": "remote.loaded",
+      "code": "ready",
+      "metrics": {
+        "elapsed_ms": 1801.3368039999996
+      }
+    },
+    {
+      "time": "2026-10-20T18:44:24.280Z",
+      "level": "info",
+      "event": "app.quitting",
+      "code": "ok",
+      "metrics": {}
+    },
+    {
+      "time": "2026-10-20T18:44:24.289Z",
+      "level": "info",
+      "event": "window.closed",
+      "code": "ok",
+      "metrics": {}
+    },
+    {
+      "time": "2026-10-20T18:44:24.289Z",
+      "level": "info",
+      "event": "app.quitting",
+      "code": "ok",
+      "metrics": {}
+    }
+  ]
+}

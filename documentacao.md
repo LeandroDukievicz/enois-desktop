@@ -210,10 +210,25 @@ são dependências do aplicativo. Evidências revisadas ficam em
 `docs/verification/window-controls-2026-10-20.json` e
 `docs/verification/window-controls-wayland-2026-10-20.json`.
 
-As capturas de `docs/preview/` usam perfil temporário sem conta, aguardando o
-formulário original e o símbolo local carregado. O pacote com os controles locais
-será gerado e instalado antes de concluir esta atualização. O registro do pacote
-e da instalação fica em `docs/verification/branding-package-2026-10-20.json`.
+As capturas de `docs/preview/` foram atualizadas em perfil temporário sem conta,
+aguardando o formulário original e o símbolo local carregado.
+
+O pacote final do commit `e8f0110` foi gerado, inspecionado e instalado como revisão
+local `x8`. O checksum passou e o ícone empacotado é idêntico ao PNG oficial.
+Um perfil descartável executou o Snap na sessão GNOME/Wayland, sem flags gráficas:
+janela visível, plataforma pronta e encerramento por SIGTERM após 16 segundos,
+com `window.closed`, saída 0 e nenhuma exceção. A evidência fica em
+`docs/verification/installed-branding-smoke-2026-10-20.json`.
+
+O aplicativo foi reaberto no perfil habitual, mantendo os dados locais. A observação
+registrou a janela visível, dois eventos de carregamento pronto e nenhum erro,
+sem acessar credenciais ou conteúdo privado. O CI do código final também passou:
+[execução e8f0110](https://github.com/LeandroDukievicz/enois-desktop/actions/runs/39477191619).
+O [workflow de artefatos](https://github.com/LeandroDukievicz/enois-desktop/actions/runs/39477248521)
+também passou e disponibilizou Snap, checksum e metadados no GitHub Actions.
+O registro consolidado do pacote e da instalação fica em
+`docs/verification/branding-package-2026-10-20.json`. Nenhum upload à Snap Store
+foi executado.
 
 ## Pendências reais
 
