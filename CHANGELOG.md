@@ -9,3 +9,4 @@
 - Correção da abertura no Linux e do encerramento da view filha sem exceções.
 - Snap strict/core22 instalado e validado; primeira submissão registrada como revisão `1`.
 - Estado de revisão/liberação registrado em `docs/store-publication.md`.
+- Liberação em edge pendente de revisão humana por `browser-support` com sandbox ativo.

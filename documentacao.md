@@ -227,8 +227,8 @@ sem acessar credenciais ou conteúdo privado. O CI do código final também pass
 O [workflow de artefatos](https://github.com/LeandroDukievicz/enois-desktop/actions/runs/39477248521)
 também passou e disponibilizou Snap, checksum e metadados no GitHub Actions.
 O registro consolidado do pacote e da instalação fica em
-`docs/verification/branding-package-2026-10-20.json`. Nenhum upload à Snap Store
-foi executado.
+`docs/verification/branding-package-2026-10-20.json`. Até essa etapa, anterior à
+autorização posterior de publicação, nenhum upload à Snap Store havia sido executado.
 
 ## Pendências reais
 
@@ -273,9 +273,10 @@ exigem validação com conta autorizada. Recursos públicos/documentados e limit
 estão inventariados em docs/platform-compatibility.md. Não se declara paridade
 funcional completa apenas porque o site original está carregado.
 
-A revisão da Snap Store, confirmação de direitos sobre logotipo oficial, página
-da loja e promoção de canais permanecem etapas futuras. Reservar o nome não
-significa publicar uma versão. O workflow gera artefatos e não faz upload automático.
+A aprovação humana da Snap Store, condições de uso do logotipo na distribuição,
+página completa da loja e promoção de canais continuam pendentes. Reservar o nome
+ou enviar uma revisão não significa liberar um canal. O workflow gera artefatos
+e não faz upload automático; o primeiro envio autorizado está registrado abaixo.
 
 ## Primeira publicação na Snap Store — 20/10/2026
 
@@ -299,3 +300,17 @@ O workflow acionado pela tag também passou. A loja recebeu o pacote como revis�
 A solicitação de liberação é `latest/edge`; durante o processamento, a consulta
 `snapcraft status` ainda informou ausência de revisões liberadas. Isso comprova
 submissão, mas ainda não disponibilidade para instalação pela loja.
+
+O processamento terminou com `need_manual_review`: a revisão automática exigiu
+análise humana por causa do atributo `allow-sandbox: true` da interface
+`browser-support`. O comando de upload terminou com código `1`; a revisão continua
+recebida na loja, mas nenhum canal foi liberado. Os requisitos de sandbox e
+confinamento strict foram preservados. Não foi enviado outro pacote apenas para
+repetir o mesmo resultado nem alterada a segurança para passar na revisão.
+
+Foi preparado o [pedido técnico de revisão](docs/store-review-request.md), com
+justificativa, fonte, versão, hash, permissões e evidências de QA. Esse texto não
+foi publicado no fórum nem enviado separadamente a pessoas. O resultado da loja
+está em `docs/verification/store-publication-2026-10-20.json`. A liberação depende
+agora da avaliação da Canonical; o checkpoint de disponibilidade em edge permanece
+aberto.

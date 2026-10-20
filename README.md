@@ -10,7 +10,8 @@ de erros. Não há afiliação oficial confirmada.
 
 **Status:** fundação `0.1.0` executável; Snap strict gerado, instalado e testado em Linux.
 Login autenticado e compatibilidade completa ainda estão em validação.
-A primeira revisão foi enviada à Snap Store com solicitação de liberação em `edge`.
+A revisão `1` foi enviada à Snap Store e aguarda revisão humana da Canonical
+para liberação em `edge`, devido à permissão necessária ao sandbox Chromium.
 O [estado confirmado pela loja](docs/store-publication.md) distingue envio e publicação.
 Veja os checkpoints em
 [milestone.md](milestone.md) e o registro de criação em [documentacao.md](documentacao.md).

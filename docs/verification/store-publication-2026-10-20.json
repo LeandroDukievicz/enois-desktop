@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-20T19:16:52.225253+00:00",
+  "checkedAt": "2026-10-20T19:21:58.301156+00:00",
   "name": "enois-desktop",
   "version": "0.1.0",
   "architecture": "amd64",
@@ -9,11 +9,18 @@
   "storeRevision": 1,
   "uploadedAt": "2026-10-20T19:14:26Z",
   "requestedChannel": "latest/edge",
-  "processingStatus": "processing",
+  "processingStatus": "need_manual_review",
   "releasedChannels": [],
   "metadataUpload": "success: summary, description and icon",
   "confinement": "strict",
   "chromiumSandbox": true,
   "tagBuild": "https://github.com/LeandroDukievicz/enois-desktop/actions/runs/39481721215",
-  "scope": "Authorized first upload; no claim of store availability before channel release confirmation"
+  "scope": "Package and metadata received by the store; channel availability blocked pending Canonical review; no claim of completed publication",
+  "uploadExitCode": 1,
+  "reviewError": "human review required due to 'deny-connection' constraint (interface attributes)",
+  "blockingAttribute": "browser-support: allow-sandbox=true",
+  "availableFromStore": false,
+  "publisherPanel": "https://snapcraft.io/enois-desktop/releases",
+  "manualReviewDraft": "docs/store-review-request.md; prepared, not separately posted or sent",
+  "securityChangedForApproval": false
 }

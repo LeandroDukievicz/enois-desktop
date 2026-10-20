@@ -54,6 +54,7 @@ não há afiliação oficial confirmada. Cada checkbox exige evidência verific�
 - [x] Reproduzir inspeção pública e validar POST, redirects, cookie HttpOnly e logout com fixture.
 - [x] Corrigir identificador HTTP acentuado e validar navegação real e CacheStorage.
 - [x] Enviar versão 0.1.0 à Snap Store e atualizar resumo, descrição e ícone.
+- [x] Registrar exigência real de revisão humana e preparar justificativa técnica.
 - [ ] Confirmar liberação da revisão no canal `latest/edge` após revisão da loja.
 - [ ] Validar login, logout, expiração/renovação e 2FA com conta de teste autorizada.
 - [ ] Validar feed, posts, comentários, reações, comunidades e upload.
