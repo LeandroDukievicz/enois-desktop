@@ -1,0 +1,13 @@
+{
+  "checkedAt": "2026-10-20T11:15:56.603377+00:00",
+  "sourceCommit": "d94d03c67b3341bd0f2bd92b059483093fcad217",
+  "artifact": "2289e2871e4df6e2cc5933807d40e7f3f08981822923f387137734e6e45cb7ec  enois-desktop_0.1.0_amd64.snap",
+  "officialIconSource": "https://enois.ia.br/icons/brand-icon-512.png",
+  "packagedIconSha256": "84795c9441ba52676133e9a47920fb8761ff35a64bd4aba3a4ad1357feffc4be",
+  "packagedIconMatchesSource": true,
+  "nativeControls": ["minimize", "maximize", "restore", "close"],
+  "nativeClickEvidence": "window-controls-2026-10-20.json",
+  "snapInspection": "strict; sandbox enabled; launchers, libraries and license notices verified",
+  "localInstallation": "pending: snapd refused replacement because the installed app is running",
+  "storePublication": "not performed"
+}

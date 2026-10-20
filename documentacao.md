@@ -203,6 +203,18 @@ tinham `remote.loaded`, sem `window.visible`. O main passou a mostrar a janela
 depois do carregamento do shell local e antes de iniciar o conteúdo remoto,
 sem timer de fallback. O E2E também exige `BrowserWindow.isVisible()`.
 
+Após essa correção, typecheck, lint, formatação, 35 testes Vitest e 10 E2E
+passaram novamente; o CI do commit `d94d03c` também passou. O Snap final foi
+gerado e inspecionado, e o ícone em `meta/gui/icon.png` foi comparado byte a byte
+com o PNG oficial. Seu checksum foi conferido. Evidência em
+`docs/verification/branding-package-2026-10-20.json`.
+
+A tentativa de instalar essa atualização foi recusada pelo snapd porque a
+versão anterior continua aberta. Foi solicitado que o usuário feche a janela
+atual com Alt+F4 para aplicar o pacote. A nova identidade e os controles estão
+no código, na prévia e no artefato; a instalação local dessa revisão permanece
+pendente, sem encerrar à força a sessão em uso.
+
 ## Pendências reais
 
 ### Verificação de login iniciada em 19/10/2026
