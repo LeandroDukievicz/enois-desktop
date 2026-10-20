@@ -62,6 +62,23 @@ parte do CI, pois depende da rede e da interface remota. O sucesso deste comando
 não representa login autenticado ou retorno OAuth ao desktop. Veja
 [o resultado e a validação manual](authentication-verification.md).
 
+## Verificar os controles nativos
+
+O teste opcional usa Xvfb, Openbox e xdotool para enviar cliques reais aos botões
+nativos, que não pertencem ao DOM do renderer. Em Ubuntu, instale as ferramentas
+de teste com `sudo apt-get install --no-install-recommends xvfb xauth openbox xdotool`.
+
+```bash
+pnpm verify:window-controls
+```
+
+O comando cria um display próprio, inicia apenas seu gerenciador de janelas,
+usa servidor/perfil temporários sem conta e verifica maximizar, restaurar,
+minimizar e fechar com saída 0. A janela do usuário não recebe esses cliques.
+O relatório fica em `test-results/native-window-controls.json`. A suíte E2E
+principal também verifica o logo carregado e a área segura dos controles nas
+larguras 760 e 1360 px, sem depender dessas ferramentas opcionais.
+
 ## Capturar prévia real
 
 Requer Xvfb, xauth e ImageMagick `import`, além das bibliotecas Linux do Electron.

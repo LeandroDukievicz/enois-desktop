@@ -37,7 +37,11 @@ try {
   const remote = app.windows().find((page) => page.url().startsWith('https://enois.ia.br'))
   if (!remote) throw new Error('Conteúdo remoto não encontrado')
   await remote.waitForLoadState('domcontentloaded')
+  await remote.locator('input[type="email"]').waitFor({ timeout: 30_000 })
   await remote.evaluate(() => document.fonts.ready)
+  await local
+    .getByRole('img', { name: 'Símbolo oficial do Énóis', exact: true })
+    .evaluate((image) => image.decode())
   await remote.screenshot({ path: join(output, 'platform.png') })
   const capture = async (name) => {
     const handle = await app.evaluate(({ BrowserWindow }) => {

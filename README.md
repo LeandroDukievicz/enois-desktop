@@ -15,11 +15,10 @@ O nome `enois-desktop` já está reservado na Snap Store; nenhum pacote foi publ
 
 ![Prévia real do aplicativo com a tela de entrada original do Énóis](docs/preview/desktop.png)
 
-[Ver captura do Snap instalado](docs/preview/snap-installed.png).
-
 ## Recursos implementados
 
 - Janela redimensionável, instância única e restauração de dimensões válidas.
+- Logo oficial e botões nativos para minimizar, maximizar/restaurar e fechar.
 - Site original sem preload, Node, injeção de CSS ou ponte nativa.
 - Shell React local, carregamento, falha de conexão e reconexão manual.
 - Voltar, avançar, início, recarregar, zoom e atalhos convencionais.
@@ -48,6 +47,7 @@ pnpm build
 pnpm start             # executar build local
 pnpm preview:capture   # capturar a plataforma real, sem login
 pnpm verify:auth       # verificar UI original e roteamento OAuth, sem entrar em conta
+pnpm verify:window-controls # clicar nos controles nativos em display de teste isolado
 pnpm package:dir       # executável Linux em dist/linux-unpacked
 pnpm package:snap      # pacote .snap, sem upload
 ```
@@ -82,8 +82,9 @@ O site gerencia seus tokens e armazenamento local. O cliente não os lê nem pro
 criptografar o localStorage da plataforma. O perfil local deve ser protegido pelo
 sistema operacional.
 
-O ícone local é provisório e próprio; não reproduz o logotipo oficial. A licença MIT
-cobre apenas este repositório, não o site, sua marca ou o conteúdo de seus usuários.
+O ícone e o símbolo são arquivos públicos oficiais da plataforma, adotados a pedido
+do usuário. [Fontes e hashes](assets/icons/README.md). A licença MIT cobre o código
+próprio deste repositório, não o site, sua marca ou o conteúdo de seus usuários.
 
 ## Licença
 

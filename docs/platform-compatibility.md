@@ -31,7 +31,8 @@ de seus módulos. As rotas, estética e regras de negócio continuam evoluindo n
   serviço de push nem comprova entrega em segundo plano.
 - Câmera, microfone e captura de tela não recebem interfaces Snap antecipadamente.
 - Nenhum fluxo privado ou transação foi executado nesta etapa sem conta autorizada.
-- O ícone é próprio e provisório. Reserva de nome não concede direitos sobre a marca.
+- O ícone oficial foi adotado a pedido do usuário; fontes e hashes estão em
+  `assets/icons/README.md`. O aplicativo continua identificado como independente.
 
 Fonte: [documentação oficial](https://enois.ia.br/developers),
 [termos](https://enois.ia.br/termos), [privacidade](https://enois.ia.br/privacidade).

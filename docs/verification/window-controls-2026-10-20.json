@@ -1,0 +1,23 @@
+{
+  "checkedAt": "2026-10-20T11:06:47.287Z",
+  "environment": "X11/Xvfb with Openbox; no account",
+  "nativeButtonClicks": [
+    {
+      "button": "maximize",
+      "passed": true
+    },
+    {
+      "button": "restore",
+      "passed": true
+    },
+    {
+      "button": "minimize",
+      "passed": true
+    },
+    {
+      "button": "close",
+      "passed": true,
+      "exitCode": 0
+    }
+  ]
+}

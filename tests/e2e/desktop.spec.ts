@@ -131,6 +131,37 @@ async function remotePage(): Promise<Page> {
 test('inicia, isola o conteúdo remoto, navega e encerra sem renderers órfãos', async () => {
   const shell = await launch()
   await expect(shell.getByRole('status')).toHaveText('Conectado')
+  const logo = shell.getByRole('img', { name: 'Símbolo oficial do Énóis', exact: true })
+  await expect(logo).toBeVisible()
+  await expect
+    .poll(() => logo.evaluate((image: HTMLImageElement) => image.naturalWidth))
+    .toBeGreaterThan(0)
+  for (const width of [1360, 760]) {
+    await application!.evaluate(({ BrowserWindow }, width) => {
+      BrowserWindow.getAllWindows()[0]!.setSize(width, 900)
+    }, width)
+    await expect
+      .poll(() =>
+        shell.evaluate(() => {
+          const overlay = (
+            navigator as Navigator & {
+              windowControlsOverlay?: { visible: boolean; getTitlebarAreaRect(): DOMRect }
+            }
+          ).windowControlsOverlay
+          const safe = overlay?.getTitlebarAreaRect()
+          const controls = document.querySelector('.toolbar-end')!.getBoundingClientRect()
+          return Boolean(
+            overlay?.visible &&
+            safe &&
+            safe.width > 0 &&
+            safe.width < window.innerWidth &&
+            controls.left >= safe.left &&
+            controls.right <= safe.right,
+          )
+        }),
+      )
+      .toBe(true)
+  }
   const page = await remotePage()
   await expect(page.getByRole('heading', { name: 'Comunidade de teste' })).toBeVisible()
   expect(

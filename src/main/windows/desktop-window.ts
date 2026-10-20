@@ -55,6 +55,12 @@ export async function createDesktopWindow(options: {
     center: !saved,
     show: false,
     title: 'Énóis Desktop',
+    titleBarStyle: 'hidden',
+    titleBarOverlay: {
+      color: '#ffffff',
+      symbolColor: '#262230',
+      height: toolbarHeight,
+    },
     backgroundColor: '#faf9fc',
     autoHideMenuBar: true,
     icon: join(app.getAppPath(), 'assets/icons/enois-desktop.png'),

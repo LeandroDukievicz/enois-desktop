@@ -152,14 +152,49 @@ https://github.com/LeandroDukievicz/enois-desktop/actions/runs/39173598461.
 
 ## Baseline de desempenho
 
-Uma amostra local X11/Xvfb registrou aproximadamente 502 ms entre iniciar o processo
-e obter a janela e 8,54 s até o serviço remoto pronto. O segundo valor inclui rede
+Uma amostra local X11/Xvfb de 20/10/2026 registrou aproximadamente 387 ms entre iniciar o processo
+e obter a janela e 3,38 s até o serviço remoto pronto. O segundo valor inclui rede
 e carregamento do site e não mede apenas o shell. A amostra, memória por processo,
 intervalo de CPU e contexto estão em docs/preview/measurements.json.
 
 É uma observação inicial em ambiente de desenvolvimento, não uma meta, benchmark
 repetido ou garantia de consumo em máquinas dos usuários. Wayland, HiDPI, múltiplos
 monitores e retomada de suspensão ainda precisam de medições próprias.
+
+## Logo oficial e controles da janela em 20/10/2026
+
+A pedido do usuário, o ícone provisório foi substituído pelos arquivos públicos
+oficiais da plataforma. O PNG de 512 px veio do manifesto do site; o símbolo
+transparente é o mesmo referenciado em seu HTML público. As cópias preservam os
+bytes originais, e suas fontes/hashes estão em `assets/icons/README.md`.
+O SVG arquitetural fornecido pelo usuário continua no README.
+
+A janela usa `titleBarStyle: hidden` e `titleBarOverlay` com 64 px de altura,
+disponibilizando os controles nativos de minimizar, maximizar/restaurar e fechar.
+O renderer local reserva a área indicada por `env(titlebar-area-x)` e
+`env(titlebar-area-width)`, inclusive quando a janela é estreita. A região livre
+permite arrastar a janela; os botões da navegação usam `app-region: no-drag`.
+Não foi criada uma nova API IPC para controlar janelas, e o conteúdo remoto
+continua sem preload ou acesso nativo.
+
+O E2E verifica o carregamento do símbolo, a presença do overlay nativo e a ausência
+de sobreposição com a navegação nas larguras 760 e 1360 px. Os 35 testes Vitest,
+10 E2E, typecheck, lint, formatação e build passaram nesta etapa.
+Referência: [barra de título do Electron](https://www.electronjs.org/docs/latest/tutorial/custom-title-bar).
+
+Os quatro cliques nativos também passaram em X11/Xvfb com Openbox: maximizar,
+restaurar, minimizar e fechar; o processo terminou com código 0. Foi criado
+`pnpm verify:window-controls`, que isola o display e usa apenas uma fixture local,
+sem credenciais. As ferramentas Openbox/xdotool são opcionais para esse teste e
+não são dependências do aplicativo. O relatório revisado está em
+`docs/verification/window-controls-2026-10-20.json`. A coleta do teste guarda o
+handle do processo antes do fechamento, pois o Playwright descarta seu dispatcher
+quando a aplicação sai. A primeira tentativa de coleta consultou esse dispatcher
+já descartado; o teste foi corrigido e repetido com sucesso.
+
+As capturas reais de `docs/preview/` foram atualizadas em perfil temporário sem
+conta. A captura agora aguarda o formulário original e o símbolo local carregado,
+evitando registrar apenas a primeira pintura do shell.
 
 ## Pendências reais
 

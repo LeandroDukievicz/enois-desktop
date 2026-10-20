@@ -38,6 +38,7 @@ não há afiliação oficial confirmada. Cada checkbox exige evidência verific�
 - [x] Passar typecheck, lint, formatação, testes e build.
 - [x] Criar CI e workflow de artefatos/release com permissões mínimas.
 - [x] Publicar código, documentação, capturas e evidências no repositório público.
+- [x] Adotar ícone oficial e controles nativos da janela com área reservada na barra.
 
 ## M4 · Empacotamento Linux
 
@@ -55,7 +56,7 @@ não há afiliação oficial confirmada. Cada checkbox exige evidência verific�
 - [ ] Validar feed, posts, comentários, reações, comunidades e upload.
 - [ ] Validar mensagens, notificações, vagas, eventos e demais módulos disponíveis à conta.
 - [ ] Validar OAuth, redirecionamentos e recursos que dependem de fornecedores externos.
-- [ ] Confirmar direitos sobre identidade visual antes de usar logotipo oficial na distribuição.
+- [ ] Revisar condições de uso da identidade visual para a publicação na Snap Store.
 - [ ] Testar X11/Wayland, GNOME/KDE, acessibilidade e atualização via Snap.
 - [ ] Preparar página da loja e política de privacidade do cliente.
 - [ ] Publicar canal de testes, acompanhar revisão da loja e só então promover para stable.
