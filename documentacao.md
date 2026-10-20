@@ -196,6 +196,13 @@ As capturas reais de `docs/preview/` foram atualizadas em perfil temporário sem
 conta. A captura agora aguarda o formulário original e o símbolo local carregado,
 evitando registrar apenas a primeira pintura do shell.
 
+O CI desta mudança encontrou uma condição de início que não apareceu no teste
+local: o conteúdo remoto ficava pronto, mas `ready-to-show` não era emitido na
+janela Linux ainda oculta, e o overlay não se tornava visível. Os registros do CI
+tinham `remote.loaded`, sem `window.visible`. O main passou a mostrar a janela
+depois do carregamento do shell local e antes de iniciar o conteúdo remoto,
+sem timer de fallback. O E2E também exige `BrowserWindow.isVisible()`.
+
 ## Pendências reais
 
 ### Verificação de login iniciada em 19/10/2026

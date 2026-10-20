@@ -370,10 +370,6 @@ export async function createDesktopWindow(options: {
   const resume = () => publish()
   powerMonitor.on('resume', resume)
   window.on('resize', layout)
-  window.once('ready-to-show', () => {
-    window.show()
-    log('window.visible', 'ok', 'info', { elapsed_ms: performance.now() - options.startedAt })
-  })
   const closing = (event: Electron.Event) => {
     if (quitting) return
     event.preventDefault()
@@ -410,6 +406,10 @@ export async function createDesktopWindow(options: {
   if (options.developmentUrl) await window.loadURL(options.developmentUrl)
   else await window.loadURL('enois://app/index.html')
   layout()
+  // A child view can finish first and suppress ready-to-show on a hidden Linux window.
+  // The local shell has loaded; show it before starting the remote platform.
+  window.show()
+  log('window.visible', 'ok', 'info', { elapsed_ms: performance.now() - options.startedAt })
   void load()
   return window
 }

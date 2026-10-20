@@ -130,6 +130,11 @@ async function remotePage(): Promise<Page> {
 
 test('inicia, isola o conteúdo remoto, navega e encerra sem renderers órfãos', async () => {
   const shell = await launch()
+  await expect
+    .poll(() =>
+      application!.evaluate(({ BrowserWindow }) => BrowserWindow.getAllWindows()[0]!.isVisible()),
+    )
+    .toBe(true)
   await expect(shell.getByRole('status')).toHaveText('Conectado')
   const logo = shell.getByRole('img', { name: 'Símbolo oficial do Énóis', exact: true })
   await expect(logo).toBeVisible()
