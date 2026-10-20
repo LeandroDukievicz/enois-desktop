@@ -314,3 +314,16 @@ foi publicado no fórum nem enviado separadamente a pessoas. O resultado da loja
 está em `docs/verification/store-publication-2026-10-20.json`. A liberação depende
 agora da avaliação da Canonical; o checkpoint de disponibilidade em edge permanece
 aberto.
+
+### Encaminhamento da revisão humana
+
+Ao perguntar se bastava aguardar, o usuário recebeu a distinção que faltava:
+o upload retornou a exigência `need_manual_review`, mas não confirmou entrada na
+fila humana. O pedido técnico havia sido preparado, sem envio pelo painel/fórum.
+O próximo passo é confirmar/acionar a solicitação manual na revisão `1` e formalizar
+a autorização da interface na categoria `privileged-interfaces`, evitando duplicar
+uma solicitação que já esteja pendente. O texto foi ajustado ao modelo oficial da
+Canonical, com tipo `manual-connection`, relação com o upstream, atributo e motivo.
+Uma cópia do manifesto real do pacote foi incluída em
+`docs/verification/snap-manifest-0.1.0.yaml` para facilitar a análise. Nenhum segredo
+ou dado de conta foi incluído. A autorização da Canonical permanece pendente.

@@ -67,8 +67,12 @@ liberada nesta etapa. O resultado está em
 ## Acompanhar e liberar após aprovação
 
 1. Abrir o [painel de releases](https://snapcraft.io/enois-desktop/releases) e
-   acompanhar a revisão `1`; solicitar revisão manual se o painel exigir essa ação.
-2. Se a Canonical solicitar justificativa/vetting, usar o pedido técnico preparado.
+   verificar a revisão `1`. O upload não confirmou entrada na fila humana: acionar
+   `Request manual review` / `Ask for manual review` se disponível. Se já constar
+   pedido pendente, acompanhar esse pedido sem duplicar.
+2. Para a autorização de `browser-support`, encaminhar a justificativa na categoria
+   [privileged-interfaces](https://forum.snapcraft.io/c/store-requests/privileged-interfaces/27),
+   usando o pedido preparado no modelo oficial. Essa solicitação ainda não foi enviada.
 3. Após aprovação, consultar `snapcraft status enois-desktop`. Caso `edge` ainda
    não esteja associado à revisão, executar `snapcraft release enois-desktop 1 latest/edge`.
 4. Confirmar a disponibilidade com `snap info enois-desktop` antes de anunciar a

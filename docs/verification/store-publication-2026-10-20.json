@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-20T19:21:58.301156+00:00",
+  "checkedAt": "2026-10-20T19:28:01.057357+00:00",
   "name": "enois-desktop",
   "version": "0.1.0",
   "architecture": "amd64",
@@ -15,12 +15,17 @@
   "confinement": "strict",
   "chromiumSandbox": true,
   "tagBuild": "https://github.com/LeandroDukievicz/enois-desktop/actions/runs/39481721215",
-  "scope": "Package and metadata received by the store; channel availability blocked pending Canonical review; no claim of completed publication",
+  "scope": "Upload received; channel unavailable; no confirmed manual-review request or human queue entry. Explicit dashboard request and privileged-interface submission remain to be formalized.",
   "uploadExitCode": 1,
   "reviewError": "human review required due to 'deny-connection' constraint (interface attributes)",
   "blockingAttribute": "browser-support: allow-sandbox=true",
   "availableFromStore": false,
   "publisherPanel": "https://snapcraft.io/enois-desktop/releases",
   "manualReviewDraft": "docs/store-review-request.md; prepared, not separately posted or sent",
-  "securityChangedForApproval": false
+  "securityChangedForApproval": false,
+  "manualReviewRequestConfirmed": false,
+  "humanQueueEntryConfirmed": false,
+  "requestDraftUsesCanonicalTemplate": true,
+  "privilegedInterfaceCategory": "https://forum.snapcraft.io/c/store-requests/privileged-interfaces/27",
+  "manifestEvidence": "docs/verification/snap-manifest-0.1.0.yaml"
 }

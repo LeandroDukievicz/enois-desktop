@@ -1,0 +1,50 @@
+base: core22
+grade: devel
+confinement: strict
+plugs:
+  gnome-3-28-1804:
+    interface: content
+    target: $SNAP/gnome-platform
+    default-provider: gnome-3-28-1804
+  gtk-3-themes:
+    interface: content
+    target: $SNAP/data-dir/themes
+    default-provider: gtk-common-themes
+  icon-themes:
+    interface: content
+    target: $SNAP/data-dir/icons
+    default-provider: gtk-common-themes
+  sound-themes:
+    interface: content
+    target: $SNAP/data-dir/sounds
+    default-provider: gtk-common-themes
+  browser-support:
+    interface: browser-support
+    allow-sandbox: true
+name: enois-desktop
+version: 0.1.0
+title: Énóis Desktop
+summary: Cliente desktop independente do Énóis para Linux
+description: |
+  Acesse a plataforma Énóis preservando sua interface original, com navegação
+  desktop, sessão persistente e recuperação de conexão.
+  Cliente independente, sem afiliação oficial confirmada.
+architectures:
+  - amd64
+apps:
+  enois-desktop:
+    command: command.sh
+    plugs:
+      - network
+      - desktop
+      - desktop-legacy
+      - x11
+      - wayland
+      - opengl
+      - audio-playback
+      - home
+      - browser-support
+    environment:
+      PATH: $SNAP/usr/sbin:$SNAP/usr/bin:$SNAP/sbin:$SNAP/bin:$PATH
+      SNAP_DESKTOP_RUNTIME: $SNAP/gnome-platform
+      LD_LIBRARY_PATH: $SNAP_LIBRARY_PATH:$SNAP/lib:$SNAP/usr/lib:$SNAP/lib/x86_64-linux-gnu:$SNAP/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH:$SNAP/lib:$SNAP/usr/lib:$SNAP/lib/x86_64-linux-gnu:$SNAP/usr/lib/x86_64-linux-gnu
