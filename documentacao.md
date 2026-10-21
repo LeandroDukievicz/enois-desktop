@@ -398,3 +398,17 @@ As imagens foram inspecionadas visualmente; dimensões, integridade dos PNGs e l
 locais do README/créditos/materiais foram conferidos. Os banners estão abaixo dos
 limites de tamanho do GitHub e do painel da loja. Não houve alteração dos processos
 de produção nem da política de autenticação, navegação ou sandbox do aplicativo.
+
+O commit `10b972d` foi enviado ao remoto e seu
+[CI passou](https://github.com/LeandroDukievicz/enois-desktop/actions/runs/39521872433),
+incluindo a suíte E2E existente. A descrição pública do repositório no GitHub
+também foi atualizada. Na Snap Store, a nova descrição foi confirmada pela API.
+O envio inicial de imagens por `POST` retornou `409`, `Conflict on screenshots`;
+o `PUT` documentado, com a lista completa de arquivos existentes e as novas imagens,
+retornou `200`. Consulta posterior conferiu os hashes do banner e dos três prints
+e a preservação do ícone original. Evidência em
+`docs/verification/store-media-2026-10-20.json`.
+
+O pacote não foi reenviado nesta atualização. A revisão `1` continua em
+`ManualReviewPending`, sem canais liberados. O campo Social preview do GitHub
+não foi configurado pela API; o arquivo correspondente está pronto para esse uso.

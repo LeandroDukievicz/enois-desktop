@@ -61,6 +61,7 @@ não há afiliação oficial confirmada. Cada checkbox exige evidência verific�
 - [x] Enviar versão 0.1.0 à Snap Store e atualizar resumo, descrição e ícone.
 - [x] Registrar exigência real de revisão humana e preparar justificativa técnica.
 - [x] Confirmar por API autenticada o registro `Approved` e a revisão `1` como `ManualReviewPending`.
+- [x] Atualizar descrição/créditos na loja e enviar featured banner e três capturas, conferindo os hashes após o envio.
 - [ ] Enviar a justificativa de `browser-support` na categoria `privileged-interfaces` com sessão autenticada no fórum.
 - [ ] Confirmar liberação da revisão no canal `latest/edge` após revisão da loja.
 - [ ] Validar login, logout, expiração/renovação e 2FA com conta de teste autorizada.

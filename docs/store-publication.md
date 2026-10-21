@@ -105,3 +105,33 @@ da interface continua preparado e **não foi publicado** em `privileged-interfac
 Após a liberação, a instalação será feita com `sudo snap install enois-desktop --edge`.
 Esse comando depende da disponibilidade confirmada na loja; a instalação local `x8`
 não é uma revisão pública.
+
+## Créditos e material da página da loja
+
+Em 20/10/2026 às 21:33 de Brasília, a descrição da página foi atualizada para
+identificar o cliente como projeto derivado da experiência web, paralelo e
+independente, com créditos à plataforma, aos criadores e à comunidade Énóis.
+O nome/perfil do responsável e o repositório original ainda aguardam confirmação.
+
+Foram enviados e confirmados por consulta autenticada:
+
+- Featured banner: `1800 × 600`, proporção 3:1.
+- Três screenshots reais de `1600 × 900`: entrada, preferências e tela de erro.
+- Ícone original preservado, com o mesmo SHA-256 registrado na primeira submissão.
+
+O primeiro envio das imagens por `POST` retornou HTTP `409`, `Conflict on screenshots`.
+Foi utilizado o `PUT` documentado pela API do publicador, com a lista completa dos
+materiais existentes e as adições solicitadas. O retorno foi HTTP `200`. Nova
+consulta confirmou todos os hashes, a descrição e a preservação do ícone.
+As credenciais foram usadas internamente pelo SDK oficial, sem exportação.
+
+A [evidência do envio](verification/store-media-2026-10-20.json) registra os campos
+selecionados da resposta. Os materiais e os créditos estão no commit
+[`10b972d`](https://github.com/LeandroDukievicz/enois-desktop/commit/10b972d3524522557f090cb631644f28f788cbde),
+cujo [CI passou](https://github.com/LeandroDukievicz/enois-desktop/actions/runs/39521872433).
+O procedimento de criação está em [media.md](media.md).
+
+Esta operação atualiza a página da loja. Não enviou outro pacote nem liberou
+um canal: a única revisão segue `1`, `ManualReviewPending`, e não há canais
+liberados. O manifesto histórico da revisão `1` permanece preservado como evidência;
+a descrição nova em `electron-builder.yml` também acompanhará um próximo build.

@@ -66,3 +66,8 @@ Os ícones originais e suas fontes estão documentados em
 para CI, licença e estado da publicação; não anunciam instalação na loja enquanto
 nenhum canal estiver liberado. O estado e os envios efetivos de material à loja
 ficam em [store-publication.md](store-publication.md).
+
+O featured banner e os três prints da janela foram aceitos pela API da loja
+em 20/10/2026, com hashes conferidos após o envio. A descrição também recebeu
+os créditos e a identificação de projeto derivado e paralelo. A prévia social
+do GitHub continua preparada em arquivo, sem confirmação de configuração no painel.

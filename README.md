@@ -1,4 +1,4 @@
-![Énóis Desktop: projeto derivado e paralelo à plataforma Énóis, independente para Linux](docs/assets/banner.svg)
+![Énóis Desktop: projeto derivado e paralelo à plataforma Énóis, independente para Linux](docs/assets/banner.png)
 
 # Énóis Desktop
 
