@@ -327,3 +327,23 @@ Canonical, com tipo `manual-connection`, relação com o upstream, atributo e mo
 Uma cópia do manifesto real do pacote foi incluída em
 `docs/verification/snap-manifest-0.1.0.yaml` para facilitar a análise. Nenhum segredo
 ou dado de conta foi incluído. A autorização da Canonical permanece pendente.
+
+### Estado confirmado diretamente pela API da loja
+
+Em 20/10/2026 às 21:22 de Brasília, a sessão existente do publicador foi reutilizada
+pelo SDK oficial do Snapcraft, sem exportar credenciais. As consultas de conta e
+releases retornaram HTTP `200`: o nome está `Approved` e a revisão `1` está
+`ManualReviewPending` em ambas. A lista de canais liberados continua vazia.
+Isso resolve a incerteza anterior sobre o estado da revisão: ela já consta
+pendente na loja. Não foi enviado outro pacote nem criado pedido duplicado.
+
+O formulário web da revisão retornou HTTP `302` para `/openid/login/` quando
+acessado com a autenticação do SDK. A sessão de publicação pela API não fornece
+login no painel web ou no fórum. O pedido complementar da interface continua
+preparado, sem publicação em `privileged-interfaces`. A autorização da interface,
+o início efetivo da análise e a liberação de edge não foram confirmados.
+
+Os campos selecionados da resposta, sem dados pessoais, cookies, tokens ou URLs
+de download, estão em `docs/verification/store-review-status-2026-10-20.json`.
+Foram atualizados o estado de publicação, o rascunho e os checkpoints com essa
+distinção. O SDK foi usado somente para consultas; a aprovação depende da Canonical.

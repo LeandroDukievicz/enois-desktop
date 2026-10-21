@@ -3,15 +3,18 @@
 Rascunho preparado após o resultado real da revisão automática da revisão `1`.
 Não foi publicado separadamente no fórum nem enviado como mensagem a revisores.
 O upload e seus metadados já foram enviados à loja.
-Não foi confirmado que a revisão entrou na fila humana. O retorno do upload
-`need_manual_review` informa a exigência; não comprova uma solicitação manual enviada.
+A consulta autenticada posterior confirmou `ManualReviewPending` para a revisão
+`1`, tanto na conta como na API de releases. A
+[evidência](verification/store-review-status-2026-10-20.json) confirma o estado
+pendente na loja, sem comprovar início de análise ou envio deste pedido ao fórum.
 
 Painel do publicador: [releases de enois-desktop](https://snapcraft.io/enois-desktop/releases).
 A [documentação de browser-support](https://snapcraft.io/docs/reference/interfaces/browser-support-interface/)
 explica que `allow-sandbox: true` exige avaliação de publicadores confiáveis.
-Antes de apenas aguardar, abrir a revisão `1` no painel e verificar se há pedido
-manual pendente. Se aparecer `Request manual review` / `Ask for manual review`,
-acionar essa opção. Para a autorização da interface, o texto abaixo segue o
+A revisão manual já consta pendente; acompanhar a mesma sem criar duplicatas.
+O formulário web redirecionou para login ao receber apenas a autenticação do SDK.
+O envio ao fórum depende de uma sessão web autenticada e continua pendente.
+Para a autorização da interface, o texto abaixo segue o
 [modelo oficial](https://forum.snapcraft.io/t/about-the-privileged-interfaces-category/43831)
 da categoria [privileged-interfaces](https://forum.snapcraft.io/c/store-requests/privileged-interfaces/27).
 Se já existir uma solicitação pendente, acompanhar a mesma sem criar duplicatas.

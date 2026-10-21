@@ -23,7 +23,7 @@ fluxos privados e a matriz completa de ambientes ainda pendentes. O aplicativo
 | Tag do código                 | `v0.1.0`                                                                   |
 | Revisão na loja               | `1`, recebida em 20/10/2026 às 19:14:26 UTC                                |
 | Metadados da loja             | Resumo, descrição e ícone enviados com sucesso                             |
-| Estado desta etapa            | `need_manual_review`; liberação de `edge` pendente da Canonical            |
+| Estado confirmado da revisão  | `ManualReviewPending`; liberação de `edge` pendente da Canonical           |
 
 O código desse artefato passou em 35 testes Vitest, 10 E2E, verificações de
 controles em X11 e Wayland e no CI. A loja recebeu o mesmo arquivo cujo checksum
@@ -64,15 +64,39 @@ externa da Canonical; não há aprovação automática simulada nem revisão pú
 liberada nesta etapa. O resultado está em
 [evidência da submissão](verification/store-publication-2026-10-20.json).
 
+### Confirmação autenticada do estado
+
+Em 20/10/2026 às 21:22 de Brasília (21/10 às 00:22 UTC), duas consultas
+autenticadas pelo SDK oficial do Snapcraft retornaram HTTP `200`:
+
+- `/dev/api/account`: registro do nome `Approved`; revisão `1` com estado
+  `ManualReviewPending`.
+- `/api/v2/snaps/enois-desktop/releases`: revisão `1` com estado
+  `ManualReviewPending`; nenhuma revisão liberada em canais.
+
+Assim, a loja **já registra revisão manual pendente**. Essa confirmação posterior
+substitui a incerteza documentada logo após o upload; não foi necessário enviar
+outro pacote ou uma solicitação duplicada. O estado não comprova que um revisor
+iniciou a análise, não garante prazo e não representa autorização da interface.
+Os campos públicos selecionados estão na
+[evidência da consulta autenticada](verification/store-review-status-2026-10-20.json).
+Credenciais foram usadas internamente pelo SDK, sem exportação ou registro.
+
+A tentativa de abrir o formulário da revisão usando a autenticação do SDK
+retornou HTTP `302` para `/openid/login/`. O painel web exige sua própria sessão;
+essa autenticação também não fornece uma sessão do fórum. O pedido complementar
+da interface continua preparado e **não foi publicado** em `privileged-interfaces`.
+
 ## Acompanhar e liberar após aprovação
 
-1. Abrir o [painel de releases](https://snapcraft.io/enois-desktop/releases) e
-   verificar a revisão `1`. O upload não confirmou entrada na fila humana: acionar
-   `Request manual review` / `Ask for manual review` se disponível. Se já constar
-   pedido pendente, acompanhar esse pedido sem duplicar.
+1. Acompanhar a revisão `1` no
+   [painel de releases](https://snapcraft.io/enois-desktop/releases) ou pela API
+   autenticada. O estado `ManualReviewPending` já foi confirmado. Solicitar nova
+   revisão apenas se houver mudança de estado que exija essa ação.
 2. Para a autorização de `browser-support`, encaminhar a justificativa na categoria
    [privileged-interfaces](https://forum.snapcraft.io/c/store-requests/privileged-interfaces/27),
-   usando o pedido preparado no modelo oficial. Essa solicitação ainda não foi enviada.
+   usando o pedido preparado no modelo oficial e uma sessão autenticada no fórum.
+   Essa solicitação ainda não foi enviada; o SDK do Snapcraft não autentica no fórum.
 3. Após aprovação, consultar `snapcraft status enois-desktop`. Caso `edge` ainda
    não esteja associado à revisão, executar `snapcraft release enois-desktop 1 latest/edge`.
 4. Confirmar a disponibilidade com `snap info enois-desktop` antes de anunciar a
