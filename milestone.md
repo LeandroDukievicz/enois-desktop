@@ -43,7 +43,7 @@ não há afiliação oficial confirmada. Cada checkbox exige evidência verific�
 - [x] Adicionar banner, badges e galeria de capturas reais ao README.
 - [x] Gerar banners editáveis para compartilhamento e Snap Store.
 - [x] Capturar tela de erro e verificar reconexão em perfil temporário sem conta.
-- [ ] Acrescentar crédito nominal ao responsável pelo repositório original após confirmação do link/nome.
+- [x] Vincular o repositório original `Rede-ENois/enois-frontend` e creditar sua proprietária, a organização Rede ÉNóis, após conferência no GitHub.
 
 ## M4 · Empacotamento Linux
 

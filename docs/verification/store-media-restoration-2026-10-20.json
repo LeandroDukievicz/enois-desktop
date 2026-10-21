@@ -1,0 +1,189 @@
+{
+  "checkedAt": "2026-10-21T00:39:09.170653+00:00",
+  "snap": "enois-desktop",
+  "mode": "publish",
+  "scope": "Listing text, banner and screenshots; no package upload or channel change",
+  "textFieldsToUpdate": [],
+  "currentListingDescription": "Acesse a plataforma Énóis preservando sua interface original, com navegação\ndesktop, sessão persistente e recuperação de conexão.\nProjeto derivado da experiência web do Énóis, desenvolvido de forma\nparalela e independente para Linux, sem afiliação oficial confirmada.\nCréditos pela plataforma, identidade visual e comunidade ao projeto\noriginal Énóis (https://enois.ia.br) e a seus criadores e colaboradores.\nO código deste cliente desktop é mantido por Leandro Dukievicz.",
+  "existingMedia": [
+    {
+      "type": "icon",
+      "filename": "icon.png",
+      "hash": "84795c9441ba52676133e9a47920fb8761ff35a64bd4aba3a4ad1357feffc4be"
+    }
+  ],
+  "imagesToAdd": [
+    {
+      "type": "banner",
+      "file": "assets/store/featured-banner.png",
+      "sha256": "4d6014fe13e0e96d8010c9465782032604acc3c305f6059b9af4ac447afeadaa"
+    },
+    {
+      "type": "screenshot",
+      "file": "docs/preview/desktop.png",
+      "sha256": "a81c9546faaa6ef91639dec823a79ff6379afd4635847e8ea8ec03fd2d1e557a"
+    },
+    {
+      "type": "screenshot",
+      "file": "docs/preview/settings.png",
+      "sha256": "022f2731d4774d5d40646040d429b2f5ce195a1a924ae7c08953de223c180e6d"
+    },
+    {
+      "type": "screenshot",
+      "file": "docs/preview/connection-error.png",
+      "sha256": "e3eaf079a9da143b4a1411c354b0db61df6c7d0cbaf9afc6c3c334f7f6fb1ded"
+    }
+  ],
+  "mediaHttpStatus": 200,
+  "textVerifiedAfterUpload": true,
+  "mediaVerifiedAfterUpload": true,
+  "previousMediaPreserved": true,
+  "confirmedMedia": [
+    {
+      "type": "icon",
+      "filename": "icon.png",
+      "hash": "84795c9441ba52676133e9a47920fb8761ff35a64bd4aba3a4ad1357feffc4be"
+    },
+    {
+      "type": "banner",
+      "filename": "featured-banner.png",
+      "hash": "4d6014fe13e0e96d8010c9465782032604acc3c305f6059b9af4ac447afeadaa"
+    },
+    {
+      "type": "screenshot",
+      "filename": "desktop.png",
+      "hash": "a81c9546faaa6ef91639dec823a79ff6379afd4635847e8ea8ec03fd2d1e557a"
+    },
+    {
+      "type": "screenshot",
+      "filename": "settings.png",
+      "hash": "022f2731d4774d5d40646040d429b2f5ce195a1a924ae7c08953de223c180e6d"
+    },
+    {
+      "type": "screenshot",
+      "filename": "connection-error.png",
+      "hash": "e3eaf079a9da143b4a1411c354b0db61df6c7d0cbaf9afc6c3c334f7f6fb1ded"
+    }
+  ],
+  "revisions": [
+    {
+      "revision": 1,
+      "status": "ManualReviewPending",
+      "version": "0.1.0"
+    }
+  ],
+  "releasedChannelCount": 0,
+  "credentialsExported": false,
+  "operation": "Restore banner and screenshots absent from the later publisher API query",
+  "previousUploadEvidence": "docs/verification/store-media-2026-10-20.json",
+  "mediaUpdateMethod": "Publisher API PUT with the complete current media list plus requested additions; previous media verified preserved",
+  "originalCreatorNameConfirmed": false,
+  "subsequentChecks": [
+    {
+      "checkedAt": "2026-10-21T00:42:14.109518+00:00",
+      "expectedMediaCount": 5,
+      "currentMediaCount": 5,
+      "missingFiles": [],
+      "publicAssetChecks": [
+        {
+          "type": "icon",
+          "filename": "icon.png",
+          "curlExitCode": 0,
+          "httpStatus": 200,
+          "downloadedBytes": 38087,
+          "hashMatchesMetadata": true
+        },
+        {
+          "type": "banner",
+          "filename": "featured-banner.png",
+          "curlExitCode": 0,
+          "httpStatus": 200,
+          "downloadedBytes": 94018,
+          "hashMatchesMetadata": true
+        },
+        {
+          "type": "screenshot",
+          "filename": "desktop.png",
+          "curlExitCode": 28,
+          "httpStatus": 200,
+          "downloadedBytes": 102400,
+          "hashMatchesMetadata": false
+        },
+        {
+          "type": "screenshot",
+          "filename": "settings.png",
+          "curlExitCode": 0,
+          "httpStatus": 200,
+          "downloadedBytes": 72948,
+          "hashMatchesMetadata": true
+        },
+        {
+          "type": "screenshot",
+          "filename": "connection-error.png",
+          "curlExitCode": 0,
+          "httpStatus": 200,
+          "downloadedBytes": 184092,
+          "hashMatchesMetadata": true
+        }
+      ],
+      "originalRepositoryLinkPreserved": true,
+      "credentialsExported": false,
+      "publisherCredentialsSentToMediaHost": false
+    },
+    {
+      "checkedAt": "2026-10-21T00:42:46.730881+00:00",
+      "expectedMediaCount": 5,
+      "currentMediaCount": 5,
+      "missingFiles": [],
+      "publicAssetChecks": [
+        {
+          "type": "icon",
+          "filename": "icon.png",
+          "curlExitCode": 0,
+          "httpStatus": 200,
+          "downloadedBytes": 38087,
+          "hashMatchesMetadata": true,
+          "reusedPreviousSuccessfulDownload": true
+        },
+        {
+          "type": "banner",
+          "filename": "featured-banner.png",
+          "curlExitCode": 0,
+          "httpStatus": 200,
+          "downloadedBytes": 94018,
+          "hashMatchesMetadata": true,
+          "reusedPreviousSuccessfulDownload": true
+        },
+        {
+          "type": "screenshot",
+          "filename": "desktop.png",
+          "curlExitCode": 0,
+          "httpStatus": 200,
+          "downloadedBytes": 331871,
+          "hashMatchesMetadata": true
+        },
+        {
+          "type": "screenshot",
+          "filename": "settings.png",
+          "curlExitCode": 0,
+          "httpStatus": 200,
+          "downloadedBytes": 72948,
+          "hashMatchesMetadata": true,
+          "reusedPreviousSuccessfulDownload": true
+        },
+        {
+          "type": "screenshot",
+          "filename": "connection-error.png",
+          "curlExitCode": 0,
+          "httpStatus": 200,
+          "downloadedBytes": 184092,
+          "hashMatchesMetadata": true,
+          "reusedPreviousSuccessfulDownload": true
+        }
+      ],
+      "originalRepositoryLinkPreserved": true,
+      "credentialsExported": false,
+      "publisherCredentialsSentToMediaHost": false
+    }
+  ]
+}

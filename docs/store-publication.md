@@ -111,7 +111,9 @@ não é uma revisão pública.
 Em 20/10/2026 às 21:33 de Brasília, a descrição da página foi atualizada para
 identificar o cliente como projeto derivado da experiência web, paralelo e
 independente, com créditos à plataforma, aos criadores e à comunidade Énóis.
-O nome/perfil do responsável e o repositório original ainda aguardam confirmação.
+O repositório original foi confirmado posteriormente pelo link informado no
+cadastro web: [Rede-ENois/enois-frontend](https://github.com/Rede-ENois/enois-frontend),
+cuja proprietária é a organização [Rede ÉNóis](https://github.com/Rede-ENois).
 
 Foram enviados e confirmados por consulta autenticada:
 
@@ -135,3 +137,31 @@ Esta operação atualiza a página da loja. Não enviou outro pacote nem liberou
 um canal: a única revisão segue `1`, `ManualReviewPending`, e não há canais
 liberados. O manifesto histórico da revisão `1` permanece preservado como evidência;
 a descrição nova em `electron-builder.yml` também acompanhará um próximo build.
+
+## Conferência após edição pelo navegador
+
+O usuário informou que adicionou dados pela página web e que não via os prints.
+As consultas autenticadas de 20/10/2026 às 21:37 de Brasília confirmaram o link
+do repositório original e o endereço de apoio em `links`, mantendo a descrição.
+Porém, o cadastro de mídia voltou a conter somente o ícone; o banner e os três
+screenshots do envio anterior estavam ausentes. A resposta tinha política de
+cache `no-store` e data atual. O desaparecimento foi observado, sem atribuir uma
+causa que a API não comprova.
+
+As imagens foram restauradas pelo endpoint de mídia, preservando o ícone e os
+links informados pelo usuário. O envio retornou HTTP `200` e nova consulta
+confirmou os cinco registros: um ícone, um banner e três screenshots.
+Consultas às 21:41 e 21:42 de Brasília confirmaram a permanência dos cinco registros.
+Os cinco arquivos também foram baixados sem autenticação, com HTTP `200` e
+SHA-256 idêntico aos hashes do cadastro. Uma tentativa de baixar `desktop.png`
+com limite de 12 segundos expirou com conteúdo parcial; uma nova tentativa com
+limite maior baixou os 331.871 bytes e validou o hash completo. Esses resultados
+estão na [evidência de restauração](verification/store-media-restoration-2026-10-20.json)
+e na [consulta posterior](verification/store-media-after-restoration-2026-10-20.json).
+A [consulta anterior à restauração](verification/store-browser-check-2026-10-20.json)
+preserva a evidência da ausência das imagens.
+
+Para conferir uma página que já estava aberta durante os envios, recarregar o
+[painel da loja](https://snapcraft.io/enois-desktop/listing) com `Ctrl+Shift+R`.
+O envio de material à página não altera o estado do pacote: a revisão `1` continua
+`ManualReviewPending`, sem canal liberado ou prazo de conclusão informado.

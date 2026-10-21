@@ -14,11 +14,15 @@ mantenedores, colaboradores e à comunidade que participa e compartilha conteúd
 - [Sobre o projeto original](https://enois.ia.br/sobre).
 - [Diretrizes da comunidade](https://enois.ia.br/diretrizes).
 - [Documentação pública de integração](https://enois.ia.br/developers).
+- [Repositório original do frontend: Rede-ENois/enois-frontend](https://github.com/Rede-ENois/enois-frontend).
+- [Organização responsável pelo repositório original: Rede ÉNóis](https://github.com/Rede-ENois).
 - [Origem dos símbolos e ícones usados neste cliente](assets/icons/README.md).
 
-A página pública consultada não identifica nominalmente o responsável nem
-vincula um repositório de código-fonte. O link e a identificação foram solicitados
-ao mantenedor deste cliente para acrescentar o crédito nominal com precisão.
+O repositório original foi informado pelo usuário nos links da página da Snap
+Store e conferido na API pública do GitHub em 20/10/2026. Seu proprietário é a
+organização **Rede ÉNóis (`Rede-ENois`)**. O README do upstream identifica o projeto
+como frontend do domínio `enois.ia.br`. Os créditos incluem essa organização e
+seus colaboradores, preservando a autoria da plataforma e da comunidade originais.
 
 ## Adaptação desktop
 

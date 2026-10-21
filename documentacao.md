@@ -412,3 +412,42 @@ e a preservação do ícone original. Evidência em
 O pacote não foi reenviado nesta atualização. A revisão `1` continua em
 `ManualReviewPending`, sem canais liberados. O campo Social preview do GitHub
 não foi configurado pela API; o arquivo correspondente está pronto para esse uso.
+
+### Conferência de alterações feitas no navegador
+
+O usuário adicionou o link do projeto original ao cadastro web da Snap Store.
+A consulta autenticada de 20/10/2026 às 21:37 confirmou
+`https://github.com/Rede-ENois/enois-frontend` em `links.website` e o endereço de
+apoio em `links.donations`. A API pública do GitHub identificou o proprietário
+como a organização `Rede-ENois`, nome de exibição `Rede ÉNóis`; seu README também
+identifica o frontend do domínio `enois.ia.br`. O README desktop, `CREDITS.md` e
+o rascunho da revisão receberam esses vínculos e o checkpoint de identificação
+da organização foi concluído. Não foi inventada uma autoria individual.
+
+Quando o usuário informou que não via os prints, duas consultas do cadastro
+confirmaram somente o ícone. O envio anterior havia sido confirmado por hashes,
+mas o banner e os três prints estavam ausentes na leitura posterior. A causa
+não foi determinada pela API; a evidência foi preservada em
+`docs/verification/store-browser-check-2026-10-20.json`.
+
+As imagens foram restauradas por `PUT` de mídia com a lista completa dos registros,
+mantendo o ícone. Os links editados pelo usuário foram preservados; não foi feita
+outra alteração dos metadados textuais. O retorno foi HTTP `200` e a consulta
+posterior confirmou os cinco arquivos. A evidência de restauração e as verificações
+adicionais ficam em `docs/verification/store-media-restoration-2026-10-20.json`.
+A página do navegador deve ser recarregada para consultar o cadastro atualizado.
+
+O usuário também perguntou sobre disponibilidade: a consulta de releases ainda
+retorna somente a revisão `1`, `ManualReviewPending`, sem canais liberados.
+O pacote de testes foi enviado e permanece pendente de análise da Canonical.
+Não foi informado prazo pela loja nem prometida uma data de liberação.
+
+As consultas posteriores às 21:41 e 21:42 confirmaram que os cinco registros
+continuaram no cadastro. Foram baixados os arquivos públicos sem enviar a
+autenticação do publicador: todos retornaram HTTP `200` e seus hashes coincidiram
+com os originais. O primeiro download de `desktop.png` com prazo de 12 segundos
+expirou parcialmente; a repetição com prazo maior confirmou o arquivo completo.
+Os outros quatro downloads já haviam passado e não foram repetidos. Uma tentativa
+anterior com urllib foi interrompida por exceder o tempo previsto; a verificação
+final usou curl com prazo total explícito. Esses resultados ficaram registrados,
+sem alterar arquivos do aplicativo ou usar a sessão do navegador do usuário.

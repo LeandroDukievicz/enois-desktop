@@ -15,8 +15,10 @@ tema e regras de negócio continuam sendo entregues pela plataforma original.
 O código local acrescenta navegação, ciclo de vida, sessão persistente e recuperação
 de erros. Não há afiliação oficial confirmada.
 
-**Créditos ao projeto original Énóis, a seus criadores, mantenedores e à sua
-comunidade**, que constroem a plataforma e sua identidade visual. Esta adaptação
+**Créditos ao projeto original Énóis, à organização [Rede ÉNóis](https://github.com/Rede-ENois),
+a seus criadores, mantenedores e à sua comunidade**, que constroem a plataforma e
+sua identidade visual. O [frontend original](https://github.com/Rede-ENois/enois-frontend)
+é mantido no repositório da organização. Esta adaptação
 desktop é mantida por [Leandro Dukievicz](https://github.com/LeandroDukievicz).
 Veja os [créditos e a relação com o projeto original](CREDITS.md).
 

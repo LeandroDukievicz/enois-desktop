@@ -71,3 +71,8 @@ O featured banner e os três prints da janela foram aceitos pela API da loja
 em 20/10/2026, com hashes conferidos após o envio. A descrição também recebeu
 os créditos e a identificação de projeto derivado e paralelo. A prévia social
 do GitHub continua preparada em arquivo, sem confirmação de configuração no painel.
+
+Uma consulta posterior encontrou somente o ícone no cadastro da loja; o banner
+e os prints foram restaurados. As verificações seguintes confirmaram a permanência
+dos cinco registros e o download público dos arquivos, com hashes corretos.
+O histórico e os resultados estão em [store-publication.md](store-publication.md).

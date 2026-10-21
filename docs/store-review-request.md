@@ -66,6 +66,9 @@ It is a parallel project derived from the original web experience. The original
 and functionality; Leandro Dukievicz maintains the desktop adaptation. Attribution
 and the scope of this relationship are documented at
 https://github.com/LeandroDukievicz/enois-desktop/blob/main/CREDITS.md.
+The original platform frontend is maintained by the Rede ÉNóis organization at
+https://github.com/Rede-ENois/enois-frontend; this desktop client loads the hosted
+platform without incorporating that repository's frontend source code.
 It is not presented as an official application. It runs interactively as the
 desktop user; it has no daemon, service or requirement to run as root.
 

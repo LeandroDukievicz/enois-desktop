@@ -1,0 +1,85 @@
+{
+  "checkedAt": "2026-10-21T00:37:53.346565+00:00",
+  "name": "enois-desktop",
+  "scope": "Read-only confirmation after the user reported a browser update; no remote mutation",
+  "httpStatus": {
+    "account": 200,
+    "metadata": 200,
+    "media": 200,
+    "releases": 200
+  },
+  "registrationStatus": "Approved",
+  "listing": {
+    "title": "Énóis Desktop",
+    "summary": "Cliente desktop independente do Énóis para Linux",
+    "description": "Acesse a plataforma Énóis preservando sua interface original, com navegação\ndesktop, sessão persistente e recuperação de conexão.\nProjeto derivado da experiência web do Énóis, desenvolvido de forma\nparalela e independente para Linux, sem afiliação oficial confirmada.\nCréditos pela plataforma, identidade visual e comunidade ao projeto\noriginal Énóis (https://enois.ia.br) e a seus criadores e colaboradores.\nO código deste cliente desktop é mantido por Leandro Dukievicz.",
+    "website": "https://enois.ia.br/",
+    "license": "",
+    "links": {
+      "donations": ["https://enois.ia.br/apoiar"],
+      "website": ["https://enois.ia.br/", "https://github.com/Rede-ENois/enois-frontend"]
+    }
+  },
+  "descriptionChangedSinceLastApiUpdate": false,
+  "metadataFieldNames": [
+    "blacklist_countries",
+    "categories",
+    "contact",
+    "default_track",
+    "description",
+    "keywords",
+    "license",
+    "links",
+    "private",
+    "public_metrics_blacklist",
+    "public_metrics_enabled",
+    "summary",
+    "title",
+    "unlisted",
+    "update_metadata_on_release",
+    "video_urls",
+    "website",
+    "whitelist_countries"
+  ],
+  "responseDate": "Wed, 21 Oct 2026 00:37:52 GMT",
+  "cacheControl": "max-age=0, no-cache, no-store, must-revalidate, private",
+  "media": [
+    {
+      "type": "icon",
+      "filename": "icon.png",
+      "hash": "84795c9441ba52676133e9a47920fb8761ff35a64bd4aba3a4ad1357feffc4be"
+    }
+  ],
+  "newMedia": [],
+  "previousMediaMissing": [
+    {
+      "type": "banner",
+      "filename": "featured-banner.png",
+      "hash": "4d6014fe13e0e96d8010c9465782032604acc3c305f6059b9af4ac447afeadaa"
+    },
+    {
+      "type": "screenshot",
+      "filename": "desktop.png",
+      "hash": "a81c9546faaa6ef91639dec823a79ff6379afd4635847e8ea8ec03fd2d1e557a"
+    },
+    {
+      "type": "screenshot",
+      "filename": "settings.png",
+      "hash": "022f2731d4774d5d40646040d429b2f5ce195a1a924ae7c08953de223c180e6d"
+    },
+    {
+      "type": "screenshot",
+      "filename": "connection-error.png",
+      "hash": "e3eaf079a9da143b4a1411c354b0db61df6c7d0cbaf9afc6c3c334f7f6fb1ded"
+    }
+  ],
+  "revisions": [
+    {
+      "revision": 1,
+      "status": "ManualReviewPending",
+      "version": "0.1.0"
+    }
+  ],
+  "releasedChannelCount": 0,
+  "credentialsExported": false
+}
