@@ -1,39 +1,39 @@
 {
-  "capturedAt": "2026-10-20T11:34:48.847Z",
+  "capturedAt": "2026-10-21T00:31:14.330Z",
   "platform": "linux",
   "scenario": "Original login page visible; no account; development Electron under X11/Xvfb; 1500ms CPU sampling interval",
-  "launchToWindowMs": 394.371053,
-  "launchToPlatformReadyMs": 2366.47832,
+  "launchToWindowMs": 482.958635,
+  "launchToPlatformReadyMs": 3457.706482,
   "measurements": [
     {
       "type": "Browser",
       "cpuPercent": 0,
-      "workingSetKiB": 195480,
-      "peakWorkingSetKiB": 200716
+      "workingSetKiB": 193740,
+      "peakWorkingSetKiB": 200548
     },
     {
       "type": "GPU",
-      "cpuPercent": 0,
-      "workingSetKiB": 161292,
-      "peakWorkingSetKiB": 178904
+      "cpuPercent": 0.04156607676090528,
+      "workingSetKiB": 164044,
+      "peakWorkingSetKiB": 184164
     },
     {
       "type": "Utility",
       "cpuPercent": 0,
-      "workingSetKiB": 90512,
-      "peakWorkingSetKiB": 90512
+      "workingSetKiB": 89120,
+      "peakWorkingSetKiB": 89120
     },
     {
       "type": "Tab",
       "cpuPercent": 0,
-      "workingSetKiB": 127004,
-      "peakWorkingSetKiB": 127004
+      "workingSetKiB": 126196,
+      "peakWorkingSetKiB": 126196
     },
     {
       "type": "Tab",
       "cpuPercent": 0,
-      "workingSetKiB": 154996,
-      "peakWorkingSetKiB": 159736
+      "workingSetKiB": 156336,
+      "peakWorkingSetKiB": 161616
     }
   ]
 }

@@ -26,7 +26,7 @@ linux:
   desktop:
     entry:
       Name: Énóis Desktop
-      Comment: Cliente independente da plataforma Énóis
+      Comment: Projeto derivado e paralelo ao Énóis, independente para Linux
       StartupWMClass: enois-desktop
 snapcraft:
   base: core22
@@ -37,7 +37,11 @@ snapcraft:
     description: |
       Acesse a plataforma Énóis preservando sua interface original, com navegação
       desktop, sessão persistente e recuperação de conexão.
-      Cliente independente, sem afiliação oficial confirmada.
+      Projeto derivado da experiência web do Énóis, desenvolvido de forma
+      paralela e independente para Linux, sem afiliação oficial confirmada.
+      Créditos pela plataforma, identidade visual e comunidade ao projeto
+      original Énóis (https://enois.ia.br) e a seus criadores e colaboradores.
+      O código deste cliente desktop é mantido por Leandro Dukievicz.
     confinement: strict
     grade: devel
     plugs:

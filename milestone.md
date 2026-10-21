@@ -39,6 +39,11 @@ não há afiliação oficial confirmada. Cada checkbox exige evidência verific�
 - [x] Criar CI e workflow de artefatos/release com permissões mínimas.
 - [x] Publicar código, documentação, capturas e evidências no repositório público.
 - [x] Adotar ícone oficial e controles da janela no shell local, sem sobrepor a navegação.
+- [x] Identificar a adaptação como projeto derivado, paralelo e independente, com créditos à plataforma e comunidade originais.
+- [x] Adicionar banner, badges e galeria de capturas reais ao README.
+- [x] Gerar banners editáveis para compartilhamento e Snap Store.
+- [x] Capturar tela de erro e verificar reconexão em perfil temporário sem conta.
+- [ ] Acrescentar crédito nominal ao responsável pelo repositório original após confirmação do link/nome.
 
 ## M4 · Empacotamento Linux
 

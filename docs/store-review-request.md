@@ -61,6 +61,11 @@ https://github.com/LeandroDukievicz/enois-desktop/blob/main/docs/verification/sn
 - Artifact SHA-256: `684c453c965b6e68e46452ce217b2a55e5314c4ace9b8f68ffaf0e28d669ec20`.
 
 Énóis Desktop is an independent Electron client for https://enois.ia.br/feed.
+It is a parallel project derived from the original web experience. The original
+Énóis creators, maintainers and community are credited for the platform, branding
+and functionality; Leandro Dukievicz maintains the desktop adaptation. Attribution
+and the scope of this relationship are documented at
+https://github.com/LeandroDukievicz/enois-desktop/blob/main/CREDITS.md.
 It is not presented as an official application. It runs interactively as the
 desktop user; it has no daemon, service or requirement to run as root.
 

@@ -1,0 +1,15 @@
+{
+  "capturedAt": "2026-10-21T00:31:15.332Z",
+  "environment": "Linux; Electron development build; X11/Xvfb; disposable profile; no account",
+  "windowSize": {
+    "width": 1600,
+    "height": 900
+  },
+  "captures": {
+    "desktop.png": "Original public sign-in page inside the desktop application",
+    "platform.png": "Original remote WebContentsView without the local toolbar",
+    "settings.png": "Implemented local settings",
+    "connection-error.png": "Implemented error UI after scoped offline network emulation with service-worker bypass in the disposable profile"
+  },
+  "recoveryVerified": true
+}

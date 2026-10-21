@@ -353,3 +353,48 @@ padrão o compositor oficial do fórum (`/new-topic`) com título, justificativa
 completa e `category_id=27` preenchidos. O `xdg-open` terminou com código `0`.
 Isso é uma abertura do formulário, sem confirmação de login, publicação de tópico
 ou entrada na fila do fórum. Nenhuma sessão ou perfil de navegador foi copiado.
+
+## Créditos, capturas e banners — 20/10/2026
+
+O usuário pediu reconhecimento ao responsável pelo repositório e à comunidade
+originais, identificando o desktop como projeto derivado e paralelo. O README,
+`CREDITS.md`, os textos de empacotamento e a justificativa de revisão foram
+atualizados com essa relação e com o crédito à plataforma, aos criadores,
+mantenedores e à comunidade Énóis. Leandro Dukievicz permanece identificado como
+mantenedor da adaptação desktop. Não houve incorporação do backend ou do código
+do frontend original.
+
+As páginas públicas `/` e `/sobre` foram consultadas. Elas identificam o Énóis
+como projeto comunitário, sem apontar um repositório ou identificar nominalmente
+o responsável. O link e o nome foram solicitados ao usuário; o crédito nominal
+continua pendente dessa confirmação, sem atribuição baseada em suposição.
+
+O README recebeu banner, badges de CI/licença/plataforma e estado real da loja,
+além da galeria de entrada original, preferências locais e recuperação de conexão.
+O diagrama SVG fornecido pelo usuário foi preservado na seção de arquitetura.
+O script `pnpm preview:banners` gera SVGs e PNGs para README (1800 × 600),
+compartilhamento (1280 × 640) e featured banner da Snap Store (1800 × 600).
+A composição usa o símbolo original sem redesenho e declara a independência do
+cliente. A prévia social está preparada em arquivo; isso não configura, por si só,
+o campo Social preview do GitHub.
+
+`pnpm preview:capture` foi ampliado para capturar a janela em 1600 × 900, mostrar
+a tela real de erro e confirmar a reconexão. A primeira tentativa de provocar
+falha por cancelamento de requisição manteve a página disponível em cache e
+falhou na verificação; não foi registrada como sucesso. A solução validada emula
+perda de rede via CDP somente no renderer remoto do perfil descartável, ignorando
+temporariamente o service worker. Depois restaura a condição normal e verifica
+o retorno a `ready`. O perfil habitual e as credenciais do usuário não são usados.
+
+O script também verifica o encerramento da janela e ausência de exceções nos
+logs. Um apontamento de ESLint sobre lançamento de erro em `finally` foi corrigido
+para preservar a falha original e concluir a limpeza do perfil. As capturas,
+ambiente e medições estão em `docs/preview/`; o procedimento e os formatos estão
+documentados em [docs/media.md](docs/media.md).
+
+Validação desta atualização: `pnpm check` passou (typecheck, ESLint, Prettier e
+35 testes), o build de produção passou e a captura completa passou após a correção.
+As imagens foram inspecionadas visualmente; dimensões, integridade dos PNGs e links
+locais do README/créditos/materiais foram conferidos. Os banners estão abaixo dos
+limites de tamanho do GitHub e do painel da loja. Não houve alteração dos processos
+de produção nem da política de autenticação, navegação ou sandbox do aplicativo.

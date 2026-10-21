@@ -17,3 +17,7 @@ superior e no carregamento local.
 A licença MIT deste repositório cobre seu código próprio, sem conceder direitos
 sobre marcas ou recursos visuais de terceiros. O uso desses arquivos não altera
 a identificação do aplicativo como cliente independente.
+
+Os [créditos ao projeto original e à comunidade](../../CREDITS.md) também se
+aplicam aos banners que incorporam esse símbolo. A composição de divulgação é
+mantida pelo cliente desktop; a identidade visual original é do Énóis.
