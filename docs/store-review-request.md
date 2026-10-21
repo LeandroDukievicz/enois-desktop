@@ -14,6 +14,10 @@ explica que `allow-sandbox: true` exige avaliação de publicadores confiáveis.
 A revisão manual já consta pendente; acompanhar a mesma sem criar duplicatas.
 O formulário web redirecionou para login ao receber apenas a autenticação do SDK.
 O envio ao fórum depende de uma sessão web autenticada e continua pendente.
+Foi aberto no navegador padrão um link `/new-topic` com título, texto completo
+e `category_id=27` preenchidos (`xdg-open` terminou com código `0`). Abrir esse
+compositor não publica o pedido; o login e o envio pelo formulário não foram
+confirmados. O texto abaixo permanece disponível se o login perder o preenchimento.
 Para a autorização da interface, o texto abaixo segue o
 [modelo oficial](https://forum.snapcraft.io/t/about-the-privileged-interfaces-category/43831)
 da categoria [privileged-interfaces](https://forum.snapcraft.io/c/store-requests/privileged-interfaces/27).

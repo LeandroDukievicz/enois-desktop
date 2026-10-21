@@ -347,3 +347,9 @@ Os campos selecionados da resposta, sem dados pessoais, cookies, tokens ou URLs
 de download, estão em `docs/verification/store-review-status-2026-10-20.json`.
 Foram atualizados o estado de publicação, o rascunho e os checkpoints com essa
 distinção. O SDK foi usado somente para consultas; a aprovação depende da Canonical.
+
+Para reduzir o trabalho manual no envio complementar, foi aberto no navegador
+padrão o compositor oficial do fórum (`/new-topic`) com título, justificativa
+completa e `category_id=27` preenchidos. O `xdg-open` terminou com código `0`.
+Isso é uma abertura do formulário, sem confirmação de login, publicação de tópico
+ou entrada na fila do fórum. Nenhuma sessão ou perfil de navegador foi copiado.

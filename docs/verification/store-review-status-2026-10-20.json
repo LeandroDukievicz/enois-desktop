@@ -22,5 +22,13 @@
   "newUploadOrReviewRequestSentDuringCheck": false,
   "revisionDashboardHttpStatus": 302,
   "revisionDashboardRedirect": "/openid/login/",
-  "dashboardBrowserLoginRequired": true
+  "dashboardBrowserLoginRequired": true,
+  "prefilledForumComposer": {
+    "host": "forum.snapcraft.io",
+    "path": "/new-topic",
+    "categoryId": 27,
+    "titleAndFullBodyIncluded": true,
+    "xdgOpenExitCode": 0,
+    "publicationConfirmed": false
+  }
 }
