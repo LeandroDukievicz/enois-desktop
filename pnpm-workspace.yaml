@@ -5,3 +5,5 @@ allowBuilds:
   electron-winstaller: false
 patchedDependencies:
   app-builder-lib@26.15.3: patches/app-builder-lib@26.15.3.patch
+overrides:
+  'minimatch@>=7.0.0 <11.0.1': ^11.0.1

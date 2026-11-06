@@ -1,6 +1,6 @@
 {
   "name": "enois-desktop",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "Projeto desktop derivado e paralelo ao Énóis, desenvolvido de forma independente para Linux.",
   "main": "out/main/index.js",
@@ -49,7 +49,7 @@
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
     "@vitejs/plugin-react-swc": "4.3.3",
-    "electron": "44.9.0",
+    "electron": "44.10.2",
     "electron-builder": "26.15.3",
     "electron-vite": "6.0.0",
     "eslint": "10.13.0",
