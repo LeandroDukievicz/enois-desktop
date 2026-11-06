@@ -1,5 +1,27 @@
 # Publicação na Snap Store
 
+## Atualização 0.1.1 — 06/11/2026
+
+A versão 0.1.1 atualiza o Electron de 44.9.0 para 44.10.2, corrigindo o
+advisory GHSA-jr5w-w6x2-84p9. A auditoria completa e a de produção não apontaram
+vulnerabilidades conhecidas. Passaram `pnpm check` (35 testes), 10 testes E2E,
+CI, build isolado de release, inspeção do Snap e smoke instalado com perfil
+descartável, sem desativar o sandbox. O Snap local instalado é a revisão `x9`.
+
+- Commit: `2ef2c7e1a1e13a9a73776cf031d7474932db0c80`; tag `v0.1.1`.
+- Arquivo enviado: `enois-desktop_0.1.1_amd64.snap`, SHA-256
+  `11f03c0af09978698e61024975fa91333cab479b21b98db8503f974ea7459284`.
+- A loja recebeu a revisão `2` em 06/11/2026 às 17:00:55 UTC, com solicitação de
+  `latest/edge`. O comando terminou com erro porque a revisão `1` ainda aguarda
+  análise: a loja informou que é possível rejeitar e remover a revisão anterior
+  da fila para priorizar a nova.
+- Consulta autenticada posterior: revisão `1` (`0.1.0`) em `ManualReviewPending`;
+  revisão `2` (`0.1.1`) em `ReviewQueued`; nenhum canal liberado. Rejeitar a
+  revisão anterior perde sua posição de revisão e não garante a aprovação da
+  nova, que mantém o atributo privilegiado `browser-support: allow-sandbox: true`.
+- O pedido complementar no fórum continua sem publicação confirmada. O texto
+  atualizado está em [store-review-request-0.1.1.md](store-review-request-0.1.1.md).
+
 ## Primeira versão — 0.1.0
 
 O usuário autorizou explicitamente o commit/push e a publicação em 20/10/2026.
